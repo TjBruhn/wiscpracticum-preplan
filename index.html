@@ -18,15 +18,15 @@
     <!--arcgis API-->
     <link
       rel="stylesheet"
-      href="https://js.arcgis.com/4.24/esri/themes/light/main.css"
+      href="https://js.arcgis.com/4.25/esri/themes/light/main.css"
     />
-    <script src="https://js.arcgis.com/4.24/"></script>
+    <script src="https://js.arcgis.com/4.25/"></script>
 
     <!--Internal style sheet-->
     <link rel="stylesheet" href="css/style.css" />
 
     <!--main.js script-->
-    <script type="text/javascript" src="js/main.js" id="S4"></script>
+    <script type="module" src="js/main.js"></script>
 
     <!--this eliminates the Favicon error in the console-->
     <link rel="shortcut icon" href="#" />
@@ -132,7 +132,7 @@
 
     <!--Extra info  possibly delete-->
     <div class="row">
-      <div class="info " id="gisExtra">
+      <div class="info" id="gisExtra">
         <h3>GIS data:</h3>
         <ul>
           <li>OBJECTID: <span id="OBJECTID"></span></li>
@@ -146,13 +146,11 @@
           <li>Ortho: <span id="Ortho"></span></li>
           <li>GISTech: <span id="GISTech"></span></li>
         </ul>
-      </div>     
-      <div class="info" >
+      </div>
+      <div class="info">
         <h3>Additional Images:</h3>
         <span id="specialImg"></span>
-
       </div>
-      
     </div>
 
     <!--jQuery-->

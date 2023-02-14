@@ -1,4 +1,5 @@
 // javascript by Trever J. Bruhn 2022
+import { apiKey } from "../secret.js";
 
 // map for Preplan for PHG Fire
 require([
@@ -34,8 +35,7 @@ require([
   TemplateOptions,
   Expand
 ) {
-  esriConfig.apiKey =
-    "AAPKa9477a0dba254cc4af0fab36748a52b7XMGgsEZVCgXgj3NMsvJL896fPt7FY-zCmWPWtCQq8oZEbCXEaLNYS5Ioia7UWFgM";
+  esriConfig.apiKey = apiKey;
 
   //define osm basemap and set a thumbnail
   const osmStandardRelief = Basemap.fromId("osm-standard-relief");
@@ -141,7 +141,7 @@ require([
       haloColor: "white",
     },
     maxScale: 0, // labels viewable all the way to ground
-    minScale: 12000, //labels disapper at scales smaller - further zoomed out
+    minScale: 12000, //labels disapper at smaller scales - further zoomed out
   });
 
   //building symbology -- other color complements light blue:(19, 134, 191), orange:(191, 106, 0)
@@ -180,7 +180,7 @@ require([
 
   //add buildings/preplan features
   const buildings = new FeatureLayer({
-    url: "https://services9.arcgis.com/He3tz9icIQNvMqFz/arcgis/rest/services/PHG_PrePlans/FeatureServer/0",
+    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/PHG_PrePlans/FeatureServer/0",
     outFields: ["*"],
     labelingInfo: buildingsLabelClass,
     labelsVisible: true,
@@ -323,11 +323,11 @@ require([
               $("#" + item).html("No Data");
             }
           });
-        }); //END graphis.hits forEach
+        }); //END graphic.hits forEach
 
         //resize the map Div
         //match the map height to the height of the content
-        contentHeight = $("#content").innerHeight();
+        let contentHeight = $("#content").innerHeight();
         $("#viewDiv").height(contentHeight);
 
         //show the restore button and the info content
