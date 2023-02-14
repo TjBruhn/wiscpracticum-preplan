@@ -1,0 +1,110 @@
+/* 
+======== Global or Group ========
+*/
+
+#title h1,
+.info,
+#viewDiv {
+  background-color: rgb(220, 220, 220);
+  font-family: "Montserrat", sans-serif;
+  padding: 1rem;
+
+  border-bottom: 1px solid black;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* 
+===========use to create thumbnails 
+*/
+img {
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 0.22rem;
+  padding: 0.4rem; /* Some padding */
+  width: 10rem; /* Set a small width */
+}
+
+/* Add a hover effect (blue shadow) */
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+/* 
+======== title and page controls ========
+*/
+#title h1 {
+  text-align: center;
+  background-color: #004c73; /*rgb(60, 52, 107)*/
+  color: rgb(220, 220, 220);
+  margin: 0;
+}
+
+#restore {
+  font-size: 1rem;
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  z-index: 2;
+  background-color: white;
+  color: black;
+  border: 2px solid red;
+  border-radius: 0.22rem;
+}
+
+#restore:hover {
+  background-color: red;
+}
+
+/* 
+======== Map and Map Elements ========
+*/
+
+#viewDiv {
+  padding: 0;
+  height: 85vh;
+  flex: 1;
+}
+
+/* 
+======== Content ========
+*/
+
+#content {
+  flex: 1;
+}
+
+.info {
+  display: none;
+}
+
+.info h3 {
+  /*remove auto line break after h3*/
+  display: inline;
+  text-transform: uppercase;
+}
+
+.info span {
+  padding-left: 1rem;
+}
+
+.notes {
+  flex: 6;
+}
+
+.infoImg,
+.bldgImg,
+#specialImg,
+#gisExtra {
+  flex: 1;
+  
+}

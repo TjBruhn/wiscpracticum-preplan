@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>PHG Preplan Test</title>
+    <!-- ====== fonts ====== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--arcgis API-->
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.24/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.24/"></script>
+
+    <!--Internal style sheet-->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!--main.js script-->
+    <script type="text/javascript" src="js/main.js" id="S4"></script>
+
+    <!--this eliminates the Favicon error in the console-->
+    <link rel="shortcut icon" href="#" />
+  </head>
+  <body>
+    <header id="title">
+      <h1>PHG Preplan Vizualizer</h1>
+      <button id="restore">Restore Map View</button>
+    </header>
+
+    <div class="row">
+      <div class="info" id="content">
+        <h3>Building Name:</h3>
+        <span id="Name"></span><br />
+        <h3>Campus:</h3>
+        <span id="Campus"></span><br />
+        <h3>Address:</h3>
+        <span id="Address"></span><br />
+        <hr />
+
+        <h3>POC Name:</h3>
+        <span id="POCName"></span><br />
+        <h3>POC Number:</h3>
+        <span id="POCNumber"></span><br />
+
+        <hr />
+        <ul>
+          <li>Sprinklers: <span id="Sprinklers"></span></li>
+          <li>Detectors: <span id="Detectors"></span></li>
+          <li>Electricity: <span id="Electricity"></span></li>
+          <li>Water: <span id="Water"></span></li>
+          <li>Gas: <span id="Gas"></span></li>
+        </ul>
+
+        <hr />
+        <h3>SqFt:</h3>
+        <span id="SqFt"></span><br />
+        <h3>Power Provider:</h3>
+        <span id="PowerProvider"></span><br />
+      </div>
+      <!--Map frame-->
+      <div id="viewDiv"></div>
+    </div>
+
+    <!--content below map-->
+    <div class="row">
+      <div class="info notes">
+        <h3>Water Supply:</h3>
+        <span id="WaterSupply"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="info notes">
+        <h3>Notes:</h3>
+        <span id="Notes"></span>
+      </div>
+    </div>
+
+    <!--Building Images-->
+    <div class="row">
+      <div class="info bldgImg" id="imgN">North Image</div>
+
+      <div class="info bldgImg" id="imgW">West Image</div>
+
+      <div class="info bldgImg" id="imgE">East Image</div>
+
+      <div class="info bldgImg" id="imgS">South Image</div>
+    </div>
+
+    <!--Building features-->
+    <div class="row">
+      <div class="info notes">
+        <h3>Panel Info:</h3>
+        <span id="PanelInfo"></span>
+      </div>
+      <div class="info infoImg" id="ePanelImg">Panel Image</div>
+    </div>
+
+    <div class="row">
+      <div class="info notes">
+        <h3>Riser:</h3>
+        <span id="Riser"></span>
+      </div>
+      <div class="info infoImg" id="riserImg">Riser Image</div>
+    </div>
+
+    <div class="row">
+      <div class="info notes">
+        <h3>FACP:</h3>
+        <span id="FACP"></span>
+      </div>
+      <div class="info infoImg" id="facpImg">FACP Image</div>
+    </div>
+
+    <div class="row">
+      <div class="info notes">
+        <h3>Special Hazard:</h3>
+        <span id="SpecialHazard"></span>
+      </div>
+      <div class="info infoImg" id="hazImg">Special Hazard Image</div>
+    </div>
+
+    <!--Extra info  possibly delete-->
+    <div class="row">
+      <div class="info " id="gisExtra">
+        <h3>GIS data:</h3>
+        <ul>
+          <li>OBJECTID: <span id="OBJECTID"></span></li>
+          <li>GlobalID: <span id="GlobalID"></span></li>
+          <li>CreationDate: <span id="CreationDate"></span></li>
+          <li>Creator: <span id="Creator"></span></li>
+          <li>EditDate: <span id="EditDate"></span></li>
+          <li>Editor: <span id="Editor"></span></li>
+          <li>Status: <span id="Status"></span></li>
+          <li>ExtImages: <span id="ExtImages"></span></li>
+          <li>Ortho: <span id="Ortho"></span></li>
+          <li>GISTech: <span id="GISTech"></span></li>
+        </ul>
+      </div>     
+      <div class="info" >
+        <h3>Additional Images:</h3>
+        <span id="specialImg"></span>
+
+      </div>
+      
+    </div>
+
+    <!--jQuery-->
+    <script type="text/javascript" src="lib/jquery-3.6.0.js" id="S1"></script>
+  </body>
+</html>
