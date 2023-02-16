@@ -1,5 +1,5 @@
-export function editAttribute(objectId, content) {
-  console.log("edit attribute called: " + objectId + " " + content);
+export function editAttribute(layer, graphic, item, content) {
+  console.log("edit attribute called: " + item + " " + content);
   $(".edit").css("display", "block");
   $("#textEdit").val(content);
 
@@ -7,9 +7,21 @@ export function editAttribute(objectId, content) {
     .off()
     .on("click", function () {
       console.log(
-        "submitting id:" + objectId + " with content: " + $("#textEdit").val()
+        "submitting id:" + item + " with content: " + $("#textEdit").val()
       );
-      $(".edit").css("display", "none");
+      graphic.attributes[item] = $("#textEdit").val();
+      console.log("with edits: ", graphic.attributes);
+      layer
+        .applyEdits({
+          updateFeatures: [graphic],
+        })
+        .then((editsResult) => {
+          console.log("aply edits results: ", editsResult);
+        })
+        .catch((error) => {
+          console.log("error = ", error);
+        });
+      // $(".edit").css("display", "none");
     });
   $("#editCancel").on("click", function () {
     $(".edit").css("display", "none");

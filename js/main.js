@@ -238,11 +238,12 @@ require([
           };
           view.goTo(goToTarget, opts);
 
+          let graphic = graphicHit.graphic;
           let clicked = graphicHit.graphic.attributes;
           let clickedId = clicked.OBJECTID;
 
           console.log("clicked item: ", graphicHit.graphic.geometry);
-          console.log("clicked item deets: ", graphicHit.graphic.attributes);
+          console.log("clicked item deets: ", clicked);
 
           //==== get the attachments ====
           //create an attachment query object with the clicked feature's objectid
@@ -334,7 +335,7 @@ require([
             $("#" + buttonId)
               .off()
               .on("click", function () {
-                editAttribute(clickedId, clicked[item]);
+                editAttribute(buildings, graphic, item, clicked[item]);
               });
           });
         }); //END graphic.hits forEach
