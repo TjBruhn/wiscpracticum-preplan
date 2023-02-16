@@ -326,6 +326,7 @@ require([
             }
 
             // add edit buttons to every field
+            // TODO: fix bug that adds a button with every click.
             let buttonId = item + "Btn";
             $(
               '<button type="button" id="' + buttonId + '">edit</button>'
