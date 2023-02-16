@@ -1,5 +1,6 @@
 // javascript by Trever J. Bruhn 2022
 import { apiKey } from "../secret.js";
+import { editAttribute } from "./EditAttribute.js";
 
 // map for Preplan for PHG Fire
 require([
@@ -322,6 +323,19 @@ require([
             } else {
               $("#" + item).html("No Data");
             }
+
+            // add edit buttons to every field
+            let buttonId = item + "Btn";
+            $(
+              '<button type="button" id="' + buttonId + '">edit</button>'
+            ).insertBefore($("#" + item));
+
+            // add function to edit buttons
+            $("#" + buttonId)
+              .off()
+              .on("click", function () {
+                editAttribute(clickedId, clicked[item]);
+              });
           });
         }); //END graphic.hits forEach
 
