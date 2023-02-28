@@ -33,6 +33,7 @@
   </head>
   <body>
     <header id="title">
+      <button id="editMode" value="off">Edit Mode</button>
       <h1>PHG Preplan Vizualizer</h1>
       <button id="restore">Restore Map View</button>
     </header>
@@ -40,31 +41,66 @@
     <div class="row">
       <div class="info" id="content">
         <h3>Building Name:</h3>
+        <button type="button" class="editBtn" id="NameBtn">edit</button>
         <span id="Name"></span><br />
         <h3>Campus:</h3>
+        <button type="button" class="editBtn" id="CampusBtn">edit</button>
         <span id="Campus"></span><br />
         <h3>Address:</h3>
+        <button type="button" class="editBtn" id="AddressBtn">edit</button>
         <span id="Address"></span><br />
         <hr />
 
         <h3>POC Name:</h3>
+        <button type="button" class="editBtn" id="POCNameBtn">edit</button>
         <span id="POCName"></span><br />
         <h3>POC Number:</h3>
+        <button type="button" class="editBtn" id="POCNumberBtn">edit</button>
         <span id="POCNumber"></span><br />
 
         <hr />
         <ul>
-          <li>Sprinklers: <span id="Sprinklers"></span></li>
-          <li>Detectors: <span id="Detectors"></span></li>
-          <li>Electricity: <span id="Electricity"></span></li>
-          <li>Water: <span id="Water"></span></li>
-          <li>Gas: <span id="Gas"></span></li>
+          <li>
+            Sprinklers:
+            <button type="button" class="editBtn" id="SprinklersBtn">
+              edit
+            </button>
+            <span id="Sprinklers"></span>
+          </li>
+          <li>
+            Detectors:
+            <button type="button" class="editBtn" id="DetectorsBtn">
+              edit
+            </button>
+            <span id="Detectors"></span>
+          </li>
+          <li>
+            Electricity:
+            <button type="button" class="editBtn" id="ElectricityBtn">
+              edit
+            </button>
+            <span id="Electricity"></span>
+          </li>
+          <li>
+            Water:
+            <button type="button" class="editBtn" id="WaterBtn">edit</button>
+            <span id="Water"></span>
+          </li>
+          <li>
+            Gas:
+            <button type="button" class="editBtn" id="GasBtn">edit</button>
+            <span id="Gas"></span>
+          </li>
         </ul>
 
         <hr />
         <h3>SqFt:</h3>
+        <button type="button" class="editBtn" id="SqFtBtn">edit</button>
         <span id="SqFt"></span><br />
         <h3>Power Provider:</h3>
+        <button type="button" class="editBtn" id="PowerProviderBtn">
+          edit
+        </button>
         <span id="PowerProvider"></span><br />
       </div>
       <!--Map frame-->
@@ -75,6 +111,7 @@
     <div class="row">
       <div class="info notes">
         <h3>Water Supply:</h3>
+        <button type="button" class="editBtn" id="WaterSupplyBtn">edit</button>
         <span id="WaterSupply"></span>
       </div>
     </div>
@@ -82,6 +119,7 @@
     <div class="row">
       <div class="info notes">
         <h3>Notes:</h3>
+        <button type="button" class="editBtn" id="NotesBtn">edit</button>
         <span id="Notes"></span>
       </div>
     </div>
@@ -101,6 +139,7 @@
     <div class="row">
       <div class="info notes">
         <h3>Panel Info:</h3>
+        <button type="button" class="editBtn" id="PanelInfoBtn">edit</button>
         <span id="PanelInfo"></span>
       </div>
       <div class="info infoImg" id="ePanelImg">Panel Image</div>
@@ -109,6 +148,7 @@
     <div class="row">
       <div class="info notes">
         <h3>Riser:</h3>
+        <button type="button" class="editBtn" id="RiserBtn">edit</button>
         <span id="Riser"></span>
       </div>
       <div class="info infoImg" id="riserImg">Riser Image</div>
@@ -117,6 +157,7 @@
     <div class="row">
       <div class="info notes">
         <h3>FACP:</h3>
+        <button type="button" class="editBtn" id="FACPBtn">edit</button>
         <span id="FACP"></span>
       </div>
       <div class="info infoImg" id="facpImg">FACP Image</div>
@@ -125,6 +166,9 @@
     <div class="row">
       <div class="info notes">
         <h3>Special Hazard:</h3>
+        <button type="button" class="editBtn" id="SpecialHazardBtn">
+          edit
+        </button>
         <span id="SpecialHazard"></span>
       </div>
       <div class="info infoImg" id="hazImg">Special Hazard Image</div>
@@ -132,24 +176,37 @@
 
     <!--Extra info  possibly delete-->
     <div class="row">
+      <div class="info notes">
+        <h3>Additional Images:</h3>
+        <span id="specialImg"></span>
+      </div>
+    </div>
+
+    <!--GIS User data-->
+    <div class="row">
       <div class="info" id="gisExtra">
         <h3>GIS data:</h3>
         <ul>
+          <li>
+            Editor:
+            <button type="button" class="editBtn" id="EditorBtn">edit</button>
+            <span id="Editor"></span>
+          </li>
+          <li>
+            Status:
+            <button type="button" class="editBtn" id="StatusBtn">edit</button>
+            <span id="Status"></span>
+          </li>
           <li>OBJECTID: <span id="OBJECTID"></span></li>
           <li>GlobalID: <span id="GlobalID"></span></li>
           <li>CreationDate: <span id="CreationDate"></span></li>
           <li>Creator: <span id="Creator"></span></li>
           <li>EditDate: <span id="EditDate"></span></li>
-          <li>Editor: <span id="Editor"></span></li>
-          <li>Status: <span id="Status"></span></li>
+
           <li>ExtImages: <span id="ExtImages"></span></li>
           <li>Ortho: <span id="Ortho"></span></li>
           <li>GISTech: <span id="GISTech"></span></li>
         </ul>
-      </div>
-      <div class="info">
-        <h3>Additional Images:</h3>
-        <span id="specialImg"></span>
       </div>
     </div>
 

@@ -63,6 +63,25 @@ img:hover {
 
 #restore:hover {
   background-color: red;
+  color: white;
+}
+
+#editMode {
+  font-size: 1rem;
+  display: none;
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
+  z-index: 2;
+  background-color: white;
+  color: black;
+  border: 2px solid blue;
+  border-radius: 0.22rem;
+}
+
+#editMode:hover {
+  background-color: blue;
+  color: white;
 }
 
 /* 
@@ -113,7 +132,7 @@ img:hover {
   display: none;
   text-align: center;
   position: fixed;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
@@ -136,4 +155,8 @@ img:hover {
 .edit textarea {
   display: block; /*changes these to block*/
   width: inherit;
+}
+
+.editBtn {
+  display: none;
 }
