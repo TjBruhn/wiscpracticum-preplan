@@ -1,5 +1,6 @@
 // javascript by Trever J. Bruhn 2022
 import { apiKey } from "../secret.js";
+import { editAttribute } from "./EditAttribute.js";
 
 // map for Preplan for PHG Fire
 require([
@@ -52,7 +53,7 @@ require([
     map: map,
     center: [-123.03276566452028, 44.00988602105596], // LCC center Longitude, latitude
     //center: [-122.96644, 43.98075], // district center Longitude, latitude
-    zoom: 16, // Zoom level use 13 for district
+    zoom: 15, // Zoom level use 13 for district
     container: "viewDiv", // Div element
     constraints: {
       rotationEnabled: false,
@@ -237,11 +238,12 @@ require([
           };
           view.goTo(goToTarget, opts);
 
+          let graphic = graphicHit.graphic;
           let clicked = graphicHit.graphic.attributes;
           let clickedId = clicked.OBJECTID;
 
           console.log("clicked item: ", graphicHit.graphic.geometry);
-          console.log("clicked item deets: ", graphicHit.graphic.attributes);
+          console.log("clicked item deets: ", clicked);
 
           //==== get the attachments ====
           //create an attachment query object with the clicked feature's objectid
@@ -322,7 +324,34 @@ require([
             } else {
               $("#" + item).html("No Data");
             }
+
+            // add edit buttons to every field
+            // TODO: fix bug that adds a button with every click.
+            let buttonId = item + "Btn";
+            // $(
+            //   '<button type="button" id="' + buttonId + '">edit</button>'
+            // ).insertBefore($("#" + item));
+
+            // console.log(
+            //   '<button type="button" id="' + buttonId + '">edit</button>'
+            // );
+
+            // add function to edit buttons
+            $("#" + buttonId)
+              .off()
+              .on("click", function () {
+                editAttribute(buildings, graphic, item, clicked[item]);
+              });
           });
+          //show the editmode button
+          //conditional to not show on "Completed" or "NeedsRevisit" added to protect existing data during user testing
+          //TODO:remove conditional after user testing
+          if (
+            clicked.Status !== "Completed" &&
+            clicked.Status !== "NeedsRevisit"
+          ) {
+            $("#editMode").css("display", "block");
+          }
         }); //END graphic.hits forEach
 
         //resize the map Div
@@ -355,5 +384,23 @@ require([
     $(".info").css("display", "none");
     //clear the graphics layer
     selectedBuildingGraphic.graphics.removeAll();
+    //hide edit editMode buttons
+    $(".editBtn").css("display", "none");
+    //turn edit mode off and hide button
+    $("#editMode")
+      .attr("value", "off")
+      .html("Edit Mode")
+      .css("display", "none");
+  });
+
+  //Toggle on edit mode
+  $("#editMode").on("click", () => {
+    if ($("#editMode").attr("value") == "off") {
+      $(".editBtn").css("display", "inline");
+      $("#editMode").attr("value", "on").html("Edit Mode=On");
+    } else if ($("#editMode").attr("value") == "on") {
+      $(".editBtn").css("display", "none");
+      $("#editMode").attr("value", "off").html("Edit Mode");
+    }
   });
 });

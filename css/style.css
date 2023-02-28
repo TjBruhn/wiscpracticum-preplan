@@ -63,6 +63,25 @@ img:hover {
 
 #restore:hover {
   background-color: red;
+  color: white;
+}
+
+#editMode {
+  font-size: 1rem;
+  display: none;
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
+  z-index: 2;
+  background-color: white;
+  color: black;
+  border: 2px solid blue;
+  border-radius: 0.22rem;
+}
+
+#editMode:hover {
+  background-color: blue;
+  color: white;
 }
 
 /* 
@@ -106,5 +125,38 @@ img:hover {
 #specialImg,
 #gisExtra {
   flex: 1;
-  
+}
+
+/* Edit window */
+.edit {
+  display: none;
+  text-align: center;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: white;
+  color: black;
+  border: 4px solid darkgray;
+  border-radius: 0.22rem;
+  box-shadow: 2px 2px 4px #272828;
+}
+
+.edit form {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 2rem;
+  width: 90%;
+}
+
+.edit label,
+.edit textarea {
+  display: block; /*changes these to block*/
+  width: inherit;
+}
+
+.editBtn {
+  display: none;
 }
