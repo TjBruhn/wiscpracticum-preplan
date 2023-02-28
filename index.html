@@ -174,10 +174,13 @@
       <div class="info infoImg" id="hazImg">Special Hazard Image</div>
     </div>
 
-    <!--Extra info  possibly delete-->
+    <!--Additional images-->
     <div class="row">
       <div class="info notes">
         <h3>Additional Images:</h3>
+        <button type="button" class="editBtn" id="addtnlImgBtn">
+          Add Image
+        </button>
         <span id="specialImg"></span>
       </div>
     </div>
@@ -210,13 +213,25 @@
       </div>
     </div>
 
-    <!--Edit window -->
+    <!--Edit attributes window -->
     <div class="edit">
       <form>
         <label>Edit Attribute</label>
         <textarea id="textEdit" name="textEdit" rows="" cols=""></textarea>
         <button type="button" id="editSubmit">Submit</button>
         <button type="button" id="editCancel">Cancel</button>
+      </form>
+    </div>
+
+    <!--add images window -->
+    <div class="addImages">
+      <form>
+        <label>Add an Image</label><br /><br />
+        <label for="imgfile">Select a file:</label>
+        <input type="file" id="imgfile" name="imgfile" /><br /><br />
+        <!-- <input type="submit" /> probably wont need this -->
+        <button type="button" id="imageSubmit">Submit</button>
+        <button type="button" id="imageCancel">Cancel</button>
       </form>
     </div>
 

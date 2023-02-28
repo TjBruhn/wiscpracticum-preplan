@@ -1,6 +1,7 @@
 // javascript by Trever J. Bruhn 2022
 import { apiKey } from "../secret.js";
 import { editAttribute } from "./EditAttribute.js";
+import { addImages } from "./AddImages.js";
 
 // map for Preplan for PHG Fire
 require([
@@ -205,13 +206,13 @@ require([
       //clear the graphics layer
       selectedBuildingGraphic.graphics.removeAll();
 
-      // only get the graphics returned from myLayer
+      // only get the graphics returned from Buildings Layer
       const graphicHits = response.results?.filter(
         (hitResult) =>
           hitResult.type === "graphic" && hitResult.graphic.layer === buildings
       );
       if (graphicHits?.length > 0) {
-        // do something with the myLayer features returned from hittest
+        // do something with the buildings Layer features returned from hittest
         graphicHits.forEach((graphicHit) => {
           //add a graphic of the selected
           let selectedBuilding = new Graphic({
@@ -242,7 +243,7 @@ require([
           let clicked = graphicHit.graphic.attributes;
           let clickedId = clicked.OBJECTID;
 
-          console.log("clicked item: ", graphicHit.graphic.geometry);
+          console.log("clicked item: ", graphic);
           console.log("clicked item deets: ", clicked);
 
           //==== get the attachments ====
@@ -281,6 +282,7 @@ require([
 
                   let itemName = item.name;
                   let url = item.url;
+                  let itemId = prePlanMap[itemName];
 
                   //check to see if the photo is named as expected
                   if (Object.keys(prePlanMap).includes(itemName)) {
@@ -288,7 +290,7 @@ require([
                     add the attachment to their respective HTML ids as thumbnails
                     create thumbnails by wrapping the img in <a> and pass the url to both
                     */
-                    $(prePlanMap[itemName]).html(
+                    $(itemId).html(
                       '<a target="blank" href="' +
                         url +
                         '"><img src="' +
@@ -309,6 +311,20 @@ require([
                         '"/></a>"'
                     );
                   }
+                  let buttonId = itemId + "Btn";
+
+                  console.log(
+                    '<button type="button" class="editBtn" id="' +
+                      buttonId +
+                      '">Add Image</button>'
+                  );
+
+                  // add function to add image buttons
+                  // $("#" + buttonId)
+                  //   .off()
+                  //   .on("click", function () {
+                  //     addImages(buildings, graphic, itemName);
+                  //   });
                 });
               }
             });
@@ -328,9 +344,6 @@ require([
             // add edit buttons to every field
             // TODO: fix bug that adds a button with every click.
             let buttonId = item + "Btn";
-            // $(
-            //   '<button type="button" id="' + buttonId + '">edit</button>'
-            // ).insertBefore($("#" + item));
 
             // console.log(
             //   '<button type="button" id="' + buttonId + '">edit</button>'
@@ -403,4 +416,7 @@ require([
       $("#editMode").attr("value", "off").html("Edit Mode");
     }
   });
+  //TODO: remove after testing
+  //$(".addImages").css("display", "block");
+  addImages();
 });
