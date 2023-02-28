@@ -1,5 +1,6 @@
 # PHG Preplan
-G778 Practicum Project
+G778 Practicum Project, University of Wisconsin-Madision Master's in GIS Development
+
 Web mapping application to create, edit, and view preplans for Pleasant Hill Goshen Fire District 
 
 project goals:
