@@ -2,6 +2,7 @@
 import { apiKey } from "../secret.js";
 import { editAttribute } from "./EditAttribute.js";
 import { addImages } from "./AddImages.js";
+import { getAttachments } from "./GetAttachments.js";
 
 // map for Preplan for PHG Fire
 require([
@@ -247,97 +248,7 @@ require([
           console.log("clicked item deets: ", clicked);
 
           //==== get the attachments ====
-          //create an attachment query object with the clicked feature's objectid
-          let attachmentQuery = {
-            objectIds: clickedId,
-          };
-          //query the buildings layer with the attachment query object
-          buildings
-            .queryAttachments(attachmentQuery)
-            .then(function (attachments) {
-              //create a dictionary to be used to connect attachments to HTML id
-              let prePlanMap = {
-                "1.jpg": "#ePanelImg",
-                "2.jpg": "#riserImg",
-                "3.jpg": "#facpImg",
-                "4.jpg": "#hazImg",
-              };
-              //overwrite images
-              Object.keys(prePlanMap).forEach(function (item) {
-                let buttonId = prePlanMap[item] + "Btn";
-                $(prePlanMap[item]).html("No image available");
-
-                $(buttonId)
-                  .off()
-                  .on("click", function () {
-                    addImages(buildings, graphic, item);
-                  });
-              });
-
-              //clear the specialImg div
-              $("#specialImg").html("");
-              //add click function to button
-              $("#specialImgBtn")
-                .off()
-                .on("click", function () {
-                  addImages(buildings, graphic, "specialImg.jpg");
-                  //TODO: figure out unique naming
-                });
-
-              //get the attachments array
-              let attachment = attachments[clickedId];
-              if (attachment) {
-                //iterate through the attachments
-                attachment.forEach(function (item) {
-                  //console log each attachments details
-                  // console.group("name: ", item.name);
-                  // console.log("attachment id: ", item.id);
-                  // console.log("url: ", item.url);
-                  // console.groupEnd();
-
-                  let itemName = item.name;
-                  let url = item.url;
-                  let itemId = prePlanMap[itemName];
-
-                  //check to see if the photo is named as expected
-                  if (Object.keys(prePlanMap).includes(itemName)) {
-                    /*
-                    add the attachment to their respective HTML ids as thumbnails
-                    create thumbnails by wrapping the img in <a> and pass the url to both
-                    */
-                    $(itemId).html(
-                      '<a target="blank" href="' +
-                        url +
-                        '"><img src="' +
-                        url +
-                        '" alt="' +
-                        itemName +
-                        '"/></a>'
-                    );
-                  } else {
-                    //if not named as expected add to GIS extras
-                    $("#specialImg").append(
-                      '<a target="blank" href="' +
-                        url +
-                        '"><img src="' +
-                        url +
-                        '" alt="' +
-                        itemName +
-                        '"/></a>'
-                    );
-                  }
-
-                  //TODO: add buttons to html and delet this after
-                  let buttonId = itemId + "Btn";
-                  console.log(
-                    '<button type="button" class="editBtn" id="' +
-                      buttonId +
-                      '">Add Image</button>'
-                  );
-                });
-              }
-            });
-          //END Attachments Query
+          getAttachments(buildings, graphic, clickedId);
 
           //Iterates through clicked attributes and writes data to cooresponding Id
           Object.keys(clicked).forEach(function (item) {

@@ -1,4 +1,6 @@
-export function addImages(layer, graphic, imageName) {
+import { getAttachments } from "./GetAttachments.js";
+
+export function addImages(layer, graphic, clickedId, imageName) {
   //TODO: figure out unique naming for special images
   //  coordinate with line 283 in main.js
 
@@ -23,6 +25,7 @@ export function addImages(layer, graphic, imageName) {
         .addAttachment(graphic, formData)
         .then((result) => {
           console.log("attachment added: ", result);
+          getAttachments(layer, graphic, clickedId);
         })
         .catch(function (err) {
           console.log("attachment adding failed: ", err);
