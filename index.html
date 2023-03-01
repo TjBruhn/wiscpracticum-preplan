@@ -142,7 +142,12 @@
         <button type="button" class="editBtn" id="PanelInfoBtn">edit</button>
         <span id="PanelInfo"></span>
       </div>
-      <div class="info infoImg" id="ePanelImg">Panel Image</div>
+      <div class="info infoImg">
+        <span id="ePanelImg">Panel Image</span>
+        <button type="button" class="editBtn" id="ePanelImgBtn">
+          Add Image
+        </button>
+      </div>
     </div>
 
     <div class="row">
@@ -151,7 +156,12 @@
         <button type="button" class="editBtn" id="RiserBtn">edit</button>
         <span id="Riser"></span>
       </div>
-      <div class="info infoImg" id="riserImg">Riser Image</div>
+      <div class="info infoImg">
+        <span id="riserImg">Riser Image</span>
+        <button type="button" class="editBtn" id="riserImgBtn">
+          Add Image
+        </button>
+      </div>
     </div>
 
     <div class="row">
@@ -160,7 +170,10 @@
         <button type="button" class="editBtn" id="FACPBtn">edit</button>
         <span id="FACP"></span>
       </div>
-      <div class="info infoImg" id="facpImg">FACP Image</div>
+      <div class="info infoImg">
+        <span id="facpImg">FACP Image</span>
+        <button type="button" class="editBtn" id="facpImgBtn">Add Image</button>
+      </div>
     </div>
 
     <div class="row">
@@ -171,13 +184,19 @@
         </button>
         <span id="SpecialHazard"></span>
       </div>
-      <div class="info infoImg" id="hazImg">Special Hazard Image</div>
+      <div class="info infoImg">
+        <span id="hazImg">Special Hazard Image</span>
+        <button type="button" class="editBtn" id="hazImgBtn">Add Image</button>
+      </div>
     </div>
 
-    <!--Extra info  possibly delete-->
+    <!--Additional images-->
     <div class="row">
       <div class="info notes">
         <h3>Additional Images:</h3>
+        <button type="button" class="editBtn" id="specialImgBtn">
+          Add Image
+        </button>
         <span id="specialImg"></span>
       </div>
     </div>
@@ -210,13 +229,24 @@
       </div>
     </div>
 
-    <!--Edit window -->
+    <!--Edit attributes window -->
     <div class="edit">
       <form>
         <label>Edit Attribute</label>
         <textarea id="textEdit" name="textEdit" rows="" cols=""></textarea>
         <button type="button" id="editSubmit">Submit</button>
         <button type="button" id="editCancel">Cancel</button>
+      </form>
+    </div>
+
+    <!--add images window -->
+    <div class="addImages">
+      <form id="imgUploadForm">
+        <label>Add an Image</label><br /><br />
+        <label for="imgfile">Select a file:</label>
+        <input type="file" id="imgfile" name="imgfile" /><br /><br />
+        <button type="button" id="imageSubmit">Submit</button>
+        <button type="button" id="imageCancel">Cancel</button>
       </form>
     </div>
 

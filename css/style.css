@@ -116,6 +116,10 @@ img:hover {
   padding-left: 1rem;
 }
 
+.infoImg span {
+  padding-left: 0;
+}
+
 .notes {
   flex: 6;
 }
@@ -128,7 +132,8 @@ img:hover {
 }
 
 /* Edit window */
-.edit {
+.edit,
+.addImages {
   display: none;
   text-align: center;
   position: fixed;

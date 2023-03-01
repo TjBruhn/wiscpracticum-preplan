@@ -1,6 +1,7 @@
 // javascript by Trever J. Bruhn 2022
 import { apiKey } from "../secret.js";
-import { editAttribute } from "./EditAttribute.js";
+import { getAttachments } from "./GetAttachments.js";
+import { getAttributes } from "./GetAttributes.js";
 
 // map for Preplan for PHG Fire
 require([
@@ -205,13 +206,13 @@ require([
       //clear the graphics layer
       selectedBuildingGraphic.graphics.removeAll();
 
-      // only get the graphics returned from myLayer
+      // only get the graphics returned from Buildings Layer
       const graphicHits = response.results?.filter(
         (hitResult) =>
           hitResult.type === "graphic" && hitResult.graphic.layer === buildings
       );
       if (graphicHits?.length > 0) {
-        // do something with the myLayer features returned from hittest
+        // do something with the buildings Layer features returned from hittest
         graphicHits.forEach((graphicHit) => {
           //add a graphic of the selected
           let selectedBuilding = new Graphic({
@@ -239,116 +240,21 @@ require([
           view.goTo(goToTarget, opts);
 
           let graphic = graphicHit.graphic;
-          let clicked = graphicHit.graphic.attributes;
-          let clickedId = clicked.OBJECTID;
 
-          console.log("clicked item: ", graphicHit.graphic.geometry);
-          console.log("clicked item deets: ", clicked);
+          console.log("clicked item: ", graphic);
 
           //==== get the attachments ====
-          //create an attachment query object with the clicked feature's objectid
-          let attachmentQuery = {
-            objectIds: clickedId,
-          };
-          //query the buildings layer with the attachment query object
-          buildings
-            .queryAttachments(attachmentQuery)
-            .then(function (attachments) {
-              //create a dictionary to be used to connect attachments to HTML id
-              let prePlanMap = {
-                "1.jpg": "#ePanelImg",
-                "2.jpg": "#riserImg",
-                "3.jpg": "#facpImg",
-                "4.jpg": "#hazImg",
-              };
-              //overwrite images
-              Object.keys(prePlanMap).forEach(function (item) {
-                $(prePlanMap[item]).html("No image available");
-              });
-              //clear the specialImg div
-              $("#specialImg").html("");
+          getAttachments(buildings, graphic);
 
-              //get the attachments array
-              let attachment = attachments[clickedId];
-              if (attachment) {
-                //iterate through the attachments
-                attachment.forEach(function (item) {
-                  //console log each attachments details
-                  // console.group("name: ", item.name);
-                  // console.log("attachment id: ", item.id);
-                  // console.log("url: ", item.url);
-                  // console.groupEnd();
+          //==== Get the attributes ====
+          getAttributes(buildings, graphic);
 
-                  let itemName = item.name;
-                  let url = item.url;
-
-                  //check to see if the photo is named as expected
-                  if (Object.keys(prePlanMap).includes(itemName)) {
-                    /*
-                    add the attachment to their respective HTML ids as thumbnails
-                    create thumbnails by wrapping the img in <a> and pass the url to both
-                    */
-                    $(prePlanMap[itemName]).html(
-                      '<a target="blank" href="' +
-                        url +
-                        '"><img src="' +
-                        url +
-                        '" alt="' +
-                        itemName +
-                        '"/></a>'
-                    );
-                  } else {
-                    //if not named as expected add to GIS extras
-                    $("#specialImg").append(
-                      '<a target="blank" href="' +
-                        url +
-                        '"><img src="' +
-                        url +
-                        '" alt="' +
-                        itemName +
-                        '"/></a>"'
-                    );
-                  }
-                });
-              }
-            });
-          //END Attachments Query
-
-          //Iterates through clicked attributes and writes data to cooresponding Id
-          Object.keys(clicked).forEach(function (item) {
-            //DELETE: console.log("<p>" + item + ": <span id=" + item + "></span></p>)");
-
-            //check for data add it if it exists or note that it doesn't
-            if (clicked[item]) {
-              $("#" + item).html(clicked[item]);
-            } else {
-              $("#" + item).html("No Data");
-            }
-
-            // add edit buttons to every field
-            // TODO: fix bug that adds a button with every click.
-            let buttonId = item + "Btn";
-            // $(
-            //   '<button type="button" id="' + buttonId + '">edit</button>'
-            // ).insertBefore($("#" + item));
-
-            // console.log(
-            //   '<button type="button" id="' + buttonId + '">edit</button>'
-            // );
-
-            // add function to edit buttons
-            $("#" + buttonId)
-              .off()
-              .on("click", function () {
-                editAttribute(buildings, graphic, item, clicked[item]);
-              });
-          });
           //show the editmode button
           //conditional to not show on "Completed" or "NeedsRevisit" added to protect existing data during user testing
-          //TODO:remove conditional after user testing
+          //TODO: remove conditional after user testing
           if (
-            clicked.Status !== "Completed" &&
-            clicked.Status !== "NeedsRevisit"
+            graphic.attributes.Status !== "Completed" &&
+            graphic.attributes.Status !== "NeedsRevisit"
           ) {
             $("#editMode").css("display", "block");
           }
@@ -368,7 +274,7 @@ require([
 
   //END: Select building and launch preplan ======
 
-  //DELETE: utility event listener used in development
+  //TODO: DELETE: utility event listener used in development
   // view.on("click", function (event) {
   //   console.log(
   //     "[" + event.mapPoint.longitude + ", " + event.mapPoint.latitude + "]"
@@ -398,6 +304,11 @@ require([
     if ($("#editMode").attr("value") == "off") {
       $(".editBtn").css("display", "inline");
       $("#editMode").attr("value", "on").html("Edit Mode=On");
+
+      //resize the map Div
+      //match the map height to the height of the content
+      let contentHeight = $("#content").innerHeight();
+      $("#viewDiv").height(contentHeight);
     } else if ($("#editMode").attr("value") == "on") {
       $(".editBtn").css("display", "none");
       $("#editMode").attr("value", "off").html("Edit Mode");
