@@ -1,4 +1,8 @@
-export function editAttribute(layer, graphic, item, content) {
+import { getAttributes } from "./GetAttributes.js";
+
+export function editAttribute(layer, graphic, item) {
+  let content = graphic.attributes[item];
+
   console.log("edit attribute called: " + item + " " + content);
   //change the text in the label field to reflect the item being edited
   let editBoxLabel = "Edit " + item;
@@ -27,7 +31,8 @@ export function editAttribute(layer, graphic, item, content) {
         })
         .then(() => {
           //update form with value supplied
-          $("#" + item).html($("#textEdit").val());
+          //$("#" + item).html($("#textEdit").val());
+          getAttributes(layer, graphic);
         })
         .catch((error) => {
           console.log("error = ", error);

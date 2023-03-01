@@ -1,8 +1,8 @@
 import { getAttachments } from "./GetAttachments.js";
 
-export function addImages(layer, graphic, clickedId, imageName) {
+export function addImages(layer, graphic, imageName) {
   //TODO: figure out unique naming for special images
-  //  coordinate with line 283 in main.js
+  //  coordinate with line 36 in GetAttachments.js
 
   // open add images popup
   $(".addImages").css("display", "block");
@@ -25,14 +25,12 @@ export function addImages(layer, graphic, clickedId, imageName) {
         .addAttachment(graphic, formData)
         .then((result) => {
           console.log("attachment added: ", result);
-          getAttachments(layer, graphic, clickedId);
+          //update preplan with new image
+          getAttachments(layer, graphic);
         })
         .catch(function (err) {
           console.log("attachment adding failed: ", err);
         });
-
-      //update preplan with new image
-      //TODO: figure out how to reload preplan at this point
 
       //close popup window
       $(".addImages").css("display", "none");

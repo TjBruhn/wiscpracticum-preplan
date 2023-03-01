@@ -1,8 +1,7 @@
 // javascript by Trever J. Bruhn 2022
 import { apiKey } from "../secret.js";
-import { editAttribute } from "./EditAttribute.js";
-import { addImages } from "./AddImages.js";
 import { getAttachments } from "./GetAttachments.js";
+import { getAttributes } from "./GetAttributes.js";
 
 // map for Preplan for PHG Fire
 require([
@@ -241,47 +240,21 @@ require([
           view.goTo(goToTarget, opts);
 
           let graphic = graphicHit.graphic;
-          let clicked = graphicHit.graphic.attributes;
-          let clickedId = clicked.OBJECTID;
 
           console.log("clicked item: ", graphic);
-          console.log("clicked item deets: ", clicked);
 
           //==== get the attachments ====
-          getAttachments(buildings, graphic, clickedId);
+          getAttachments(buildings, graphic);
 
-          //Iterates through clicked attributes and writes data to cooresponding Id
-          Object.keys(clicked).forEach(function (item) {
-            //DELETE: console.log("<p>" + item + ": <span id=" + item + "></span></p>)");
+          //==== Get the attributes ====
+          getAttributes(buildings, graphic);
 
-            //check for data add it if it exists or note that it doesn't
-            if (clicked[item]) {
-              $("#" + item).html(clicked[item]);
-            } else {
-              $("#" + item).html("No Data");
-            }
-
-            // add edit buttons to every field
-            // TODO: fix bug that adds a button with every click.
-            let buttonId = item + "Btn";
-
-            // console.log(
-            //   '<button type="button" id="' + buttonId + '">edit</button>'
-            // );
-
-            // add function to edit buttons
-            $("#" + buttonId)
-              .off()
-              .on("click", function () {
-                editAttribute(buildings, graphic, item, clicked[item]);
-              });
-          });
           //show the editmode button
           //conditional to not show on "Completed" or "NeedsRevisit" added to protect existing data during user testing
-          //TODO:remove conditional after user testing
+          //TODO: remove conditional after user testing
           if (
-            clicked.Status !== "Completed" &&
-            clicked.Status !== "NeedsRevisit"
+            graphic.attributes.Status !== "Completed" &&
+            graphic.attributes.Status !== "NeedsRevisit"
           ) {
             $("#editMode").css("display", "block");
           }
@@ -301,7 +274,7 @@ require([
 
   //END: Select building and launch preplan ======
 
-  //DELETE: utility event listener used in development
+  //TODO: DELETE: utility event listener used in development
   // view.on("click", function (event) {
   //   console.log(
   //     "[" + event.mapPoint.longitude + ", " + event.mapPoint.latitude + "]"
@@ -331,12 +304,14 @@ require([
     if ($("#editMode").attr("value") == "off") {
       $(".editBtn").css("display", "inline");
       $("#editMode").attr("value", "on").html("Edit Mode=On");
+
+      //resize the map Div
+      //match the map height to the height of the content
+      let contentHeight = $("#content").innerHeight();
+      $("#viewDiv").height(contentHeight);
     } else if ($("#editMode").attr("value") == "on") {
       $(".editBtn").css("display", "none");
       $("#editMode").attr("value", "off").html("Edit Mode");
     }
   });
-  //TODO: remove after testing
-  //$(".addImages").css("display", "block");
-  //addImages();
 });

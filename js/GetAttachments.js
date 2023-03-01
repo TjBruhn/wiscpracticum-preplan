@@ -1,6 +1,8 @@
 import { addImages } from "./AddImages.js";
 
-export function getAttachments(buildings, graphic, clickedId) {
+export function getAttachments(buildings, graphic) {
+  let clickedId = graphic.attributes.OBJECTID;
+
   //create an attachment query object with the clicked feature's objectid
   let attachmentQuery = {
     objectIds: clickedId,
@@ -23,7 +25,7 @@ export function getAttachments(buildings, graphic, clickedId) {
       $(buttonId)
         .off()
         .on("click", function () {
-          addImages(buildings, graphic, clickedId, item);
+          addImages(buildings, graphic, item);
         });
     });
 
