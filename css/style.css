@@ -116,6 +116,10 @@ img:hover {
   padding-left: 1rem;
 }
 
+.infoImg span {
+  padding-left: 0;
+}
+
 .notes {
   flex: 6;
 }

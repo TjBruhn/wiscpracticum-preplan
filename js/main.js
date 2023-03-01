@@ -264,10 +264,25 @@ require([
               };
               //overwrite images
               Object.keys(prePlanMap).forEach(function (item) {
+                let buttonId = prePlanMap[item] + "Btn";
                 $(prePlanMap[item]).html("No image available");
+
+                $(buttonId)
+                  .off()
+                  .on("click", function () {
+                    addImages(buildings, graphic, item);
+                  });
               });
+
               //clear the specialImg div
               $("#specialImg").html("");
+              //add click function to button
+              $("#specialImgBtn")
+                .off()
+                .on("click", function () {
+                  addImages(buildings, graphic, "specialImg.jpg");
+                  //TODO: figure out unique naming
+                });
 
               //get the attachments array
               let attachment = attachments[clickedId];
@@ -308,23 +323,17 @@ require([
                         url +
                         '" alt="' +
                         itemName +
-                        '"/></a>"'
+                        '"/></a>'
                     );
                   }
-                  let buttonId = itemId + "Btn";
 
+                  //TODO: add buttons to html and delet this after
+                  let buttonId = itemId + "Btn";
                   console.log(
                     '<button type="button" class="editBtn" id="' +
                       buttonId +
                       '">Add Image</button>'
                   );
-
-                  // add function to add image buttons
-                  // $("#" + buttonId)
-                  //   .off()
-                  //   .on("click", function () {
-                  //     addImages(buildings, graphic, itemName);
-                  //   });
                 });
               }
             });
@@ -418,5 +427,5 @@ require([
   });
   //TODO: remove after testing
   //$(".addImages").css("display", "block");
-  addImages();
+  //addImages();
 });
