@@ -1,26 +1,65 @@
 import { getAttributes } from "./GetAttributes.js";
 
-export function editAttribute(layer, graphic, item) {
-  let content = graphic.attributes[item];
+export function editAttribute(layer, graphic, attrName) {
+  let attrValue = graphic.attributes[attrName];
+  let valueID = "#textEdit";
 
-  console.log("edit attribute called: " + item + " " + content);
+  console.log("edit attribute called: " + attrName + " " + attrValue);
+
   //change the text in the label field to reflect the item being edited
-  let editBoxLabel = "Edit " + item;
+  let editBoxLabel = "Edit " + attrName;
   $(".edit label").html(editBoxLabel);
+
+  //insert form entry variation based on attrName
+  //lists for form variations
+  const yesNo = ["Sprinklers", "Detectors", "Electricity", "Water", "Gas"];
+
+  //establish lists of attrNames that recieve a specific form type
+  if (attrName === "POCNumber") {
+    $("#formVariant").html(
+      `<input type="tel" id="textEdit" name="textEdit"
+       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+       required><span class="validity"></span><br/><small>Format: 123-456-7890</small>`
+    );
+
+    //TODO: inactivate submit button until Valid entry is supplied
+  } else if (yesNo.includes(attrName)) {
+    $("#formVariant").html(
+      `<input type="radio" name="yes_no" value="Yes" >Yes</input><input type="radio" name="yes_no" value="No">No</input>`
+    );
+    valueID = 'input[name="yes_no"]:checked';
+    //set the checked radio to the current value
+    $('input[name="yes_no"]').val([attrValue]);
+
+    // } else if (){
+
+    // } else if (){
+  } else {
+    $("#formVariant").html(
+      `<textarea id="textEdit" name="textEdit" rows="" cols=""></textarea>`
+    );
+  }
+  //populate text edit box with the current value
+  $("#textEdit").val(attrValue);
 
   //disply the pop up edit window
   $(".edit").css("display", "block");
 
-  //populate text edit box with the current value
-  $("#textEdit").val(content);
-
   $("#editSubmit")
     .off()
     .on("click", function () {
+      let newAttrValue = $(valueID).val();
+
       console.log(
-        "submitting id:" + item + " with content: " + $("#textEdit").val()
+        "submitting id:" +
+          attrName +
+          " with new value: " +
+          newAttrValue +
+          " valueID: " +
+          valueID
       );
-      graphic.attributes[item] = $("#textEdit").val();
+      //update graphic with new value
+      graphic.attributes[attrName] = newAttrValue;
       console.log("with edits: ", graphic.attributes);
       layer
         .applyEdits({
