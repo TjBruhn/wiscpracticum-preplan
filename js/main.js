@@ -1,5 +1,5 @@
 // javascript by Trever J. Bruhn 2022
-import { apiKey } from "../secret.js";
+
 import { getAttachments } from "./GetAttachments.js";
 import { getAttributes } from "./GetAttributes.js";
 
@@ -37,6 +37,9 @@ require([
   TemplateOptions,
   Expand
 ) {
+  const apiKey =
+    "AAPK2024d301c0de469680da8927e664d764u3ZUFrZkR27ebf6AI7HUT-U2U7goZdmTVEYIyppDXDATVQPat8VZN7Mqzt-q_Czo";
+
   esriConfig.apiKey = apiKey;
 
   //define osm basemap and set a thumbnail

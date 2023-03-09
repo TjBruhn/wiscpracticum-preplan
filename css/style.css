@@ -23,6 +23,16 @@ hr {
   justify-content: center;
 }
 
+/* universal box-sizing */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 /* 
 ===========use to create thumbnails 
 */
@@ -153,15 +163,34 @@ img:hover {
   margin-right: auto;
   text-align: center;
   padding: 2rem;
-  width: 90%;
 }
 
 .edit label,
 .edit textarea {
   display: block; /*changes these to block*/
-  width: inherit;
+  width: 100%;
 }
 
 .editBtn {
   display: none;
+}
+
+#formVariant {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* form validation styles */
+input:invalid + span::after {
+  position: absolute;
+  content: "✖";
+  padding-left: 5px;
+  color: #8b0000;
+}
+
+input:valid + span::after {
+  position: absolute;
+  content: "✓";
+  padding-left: 5px;
+  color: #009000;
 }
