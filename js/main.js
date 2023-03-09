@@ -262,15 +262,6 @@ require([
             $("#editMode").css("display", "block");
           }
         }); //END graphic.hits forEach
-
-        //resize the map Div
-        //match the map height to the height of the content
-        let contentHeight = $("#content").innerHeight();
-        $("#viewDiv").height(contentHeight);
-
-        //show the restore button and the info content
-        $("#restore").css("display", "block");
-        $(".info").css("display", "block");
       } //END if graphic
     }); //END hittest
   }); //END view.on

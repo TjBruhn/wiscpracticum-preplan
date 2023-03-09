@@ -48,7 +48,7 @@ export function editAttribute(layer, graphic, attrName) {
     $('input[name="yes_no"]').val([attrValue]);
   } else if (attrName === "SqFt") {
     $("#formVariant").html(
-      `<input type="number" id="textEdit" min="1" max="99999" required></input><span class="validity"></span>`
+      `<input type="text" inputmode="numeric" pattern="[0-9]*" minlength="3" id="textEdit" required></input><span class="validity"></span>`
     );
     //inactivate submit button until Valid entry is supplied
     //  if no current value disable submit button

@@ -22,4 +22,13 @@ export function getAttributes(buildings, graphic) {
         editAttribute(buildings, graphic, attrName);
       });
   });
+
+  //resize the map Div
+  //match the map height to the height of the content
+  let contentHeight = $("#content").innerHeight();
+  $("#viewDiv").height(contentHeight);
+
+  //show the restore button and the info content
+  $("#restore").css("display", "block");
+  $(".info").css("display", "block");
 }
