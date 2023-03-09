@@ -1,13 +1,15 @@
 import { getAttributes } from "./GetAttributes.js";
 
 export function editAttribute(layer, graphic, attrName) {
+  // reactivate submit button disabled in form validation
+  $("#editSubmit").prop("disabled", false);
   let attrValue = graphic.attributes[attrName];
   let valueID = "#textEdit";
 
   console.log("edit attribute called: " + attrName + " " + attrValue);
 
   //change the text in the label field to reflect the item being edited
-  let editBoxLabel = "Edit " + attrName;
+  let editBoxLabel = "Edit: " + attrName;
   $(".edit label").html(editBoxLabel);
 
   //insert form entry variation based on attrName
@@ -22,7 +24,21 @@ export function editAttribute(layer, graphic, attrName) {
        required><span class="validity"></span><br/><small>Format: 123-456-7890</small>`
     );
 
-    //TODO: inactivate submit button until Valid entry is supplied
+    //inactivate submit button until Valid entry is supplied
+    //  if no current value disable submit button
+    if (!attrValue) {
+      $("#editSubmit").prop("disabled", true);
+    }
+    //  when a valid value is entered enable submit button
+    $("#textEdit")
+      .off()
+      .on("keyup", function () {
+        if ($("#textEdit")[0].checkValidity()) {
+          $("#editSubmit").prop("disabled", false);
+        } else {
+          $("#editSubmit").prop("disabled", true);
+        }
+      });
   } else if (yesNo.includes(attrName)) {
     $("#formVariant").html(
       `<input type="radio" name="yes_no" value="Yes" >Yes</input><input type="radio" name="yes_no" value="No">No</input>`
@@ -30,10 +46,55 @@ export function editAttribute(layer, graphic, attrName) {
     valueID = 'input[name="yes_no"]:checked';
     //set the checked radio to the current value
     $('input[name="yes_no"]').val([attrValue]);
-
-    // } else if (){
-
-    // } else if (){
+  } else if (attrName === "SqFt") {
+    $("#formVariant").html(
+      `<input type="number" id="textEdit" min="1" max="99999" required></input><span class="validity"></span>`
+    );
+    //inactivate submit button until Valid entry is supplied
+    //  if no current value disable submit button
+    if (!attrValue) {
+      $("#editSubmit").prop("disabled", true);
+    }
+    //  when a valid value is entered enable submit button
+    $("#textEdit")
+      .off()
+      .on("keyup", function () {
+        if ($("#textEdit")[0].checkValidity()) {
+          $("#editSubmit").prop("disabled", false);
+        } else {
+          $("#editSubmit").prop("disabled", true);
+        }
+      });
+  } else if (attrName === "Campus") {
+    $("#formVariant").html(
+      `<select id="textEdit">
+          <option value="LCC">Lane Community College</option>
+          <option value="OakHill">Oak Hill</option>
+          <option value="PHill">Pleasant Hill School</option>
+          <option value="Station">Station</option>
+          <option value="Biz">Business</option>
+        </select>`
+    );
+  } else if (attrName === "PowerProvider") {
+    $("#formVariant").html(
+      `<select id="textEdit">
+            <option value="EWEB">EWEB</option>
+            <option value="EPUD">EPUD</option>
+            <option value="PacificPwr">Pacific Power</option>
+            <option value="LaneElec">Lane Electric</option>
+            <option value="Unknown">Unknown</option>
+          </select>`
+    );
+  } else if (attrName === "Status") {
+    $("#formVariant").html(
+      `<select id="textEdit">
+            <option value="Need">Need</option>
+            <option value="SVcomplete">Site visit complete</option>
+            <option value="Completed">Preplan Completed</option>
+            <option value="Unnecessary">Unnecessary</option>
+            <option value="NeedsRevisit">Needs Revisit</option>
+          </select>`
+    );
   } else {
     $("#formVariant").html(
       `<textarea id="textEdit" name="textEdit" rows="" cols=""></textarea>`
