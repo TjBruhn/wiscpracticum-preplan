@@ -21,6 +21,7 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* universal box-sizing */
@@ -65,15 +66,15 @@ img:hover {
   top: 2rem;
   right: 1rem;
   z-index: 2;
-  background-color: white;
-  color: black;
+  background-color: red;
+  color: white;
   border: 2px solid red;
   border-radius: 0.22rem;
 }
 
 #restore:hover {
-  background-color: red;
-  color: white;
+  background-color: rgb(212, 8, 8);
+  border: 2px solid rgb(212, 8, 8);
 }
 
 #editMode {
@@ -83,15 +84,15 @@ img:hover {
   top: 2rem;
   left: 1rem;
   z-index: 2;
-  background-color: white;
-  color: black;
+  background-color: blue;
+  color: white;
   border: 2px solid blue;
   border-radius: 0.22rem;
 }
 
 #editMode:hover {
-  background-color: blue;
-  color: white;
+  background-color: rgb(8, 8, 212);
+  border: 2px solid rgb(8, 8, 212);
 }
 
 /* 
@@ -139,6 +140,15 @@ img:hover {
 #specialImg,
 #gisExtra {
   flex: 1;
+}
+
+.bldgImg {
+  text-align: center;
+}
+
+/* dividers between building images */
+.row > .bldgImg:not(:last-of-type) {
+  border-right: 1px solid rgb(199, 197, 197);
 }
 
 /* Edit window */

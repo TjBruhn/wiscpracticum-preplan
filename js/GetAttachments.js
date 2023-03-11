@@ -15,6 +15,10 @@ export function getAttachments(buildings, graphic) {
       "2.jpg": "#riserImg",
       "3.jpg": "#facpImg",
       "4.jpg": "#hazImg",
+      "N.JPG": "#imgN",
+      "E.JPG": "#imgE",
+      "S.JPG": "#imgS",
+      "W.JPG": "#imgW",
     };
 
     //overwrite images
@@ -50,6 +54,21 @@ export function getAttachments(buildings, graphic) {
 
         //check to see if the photo is named as expected
         if (Object.keys(prePlanMap).includes(itemName)) {
+          /*
+          add the attachment to their respective HTML ids as thumbnails
+          create thumbnails by wrapping the img in <a> and pass the url to both
+          */
+          $(itemId).html(
+            '<a target="blank" href="' +
+              url +
+              '"><img src="' +
+              url +
+              '" alt="' +
+              itemName +
+              '"/></a>'
+          );
+        } else if (Object.keys(prePlanMap).includes(itemName.slice(-5))) {
+          itemId = prePlanMap[itemName.slice(-5)];
           /*
           add the attachment to their respective HTML ids as thumbnails
           create thumbnails by wrapping the img in <a> and pass the url to both
