@@ -215,28 +215,23 @@
       </div>
     </div>
 
-    <!--GIS User data-->
+    <!--preplan status and GIS User data-->
     <div class="row">
       <div class="info" id="gisExtra">
-        <h3>GIS data:</h3>
-        <ul>
-          <li>
-            Editor:
-            <button type="button" class="editBtn" id="EditorBtn">edit</button>
-            <span id="Editor"></span>
-          </li>
+        <h3>Preplan Status:</h3>
+        <ul id="gisExtraDetails">
           <li>
             Status:
             <button type="button" class="editBtn" id="StatusBtn">edit</button>
             <span id="Status"></span>
           </li>
 
-          <li>EditDate: <span id="EditDate"></span></li>
-
-          <li>OBJECTID: <span id="OBJECTID"></span></li>
-          <li>ExtImages: <span id="ExtImages"></span></li>
-          <li>Ortho: <span id="Ortho"></span></li>
-          <li>GISTech: <span id="GISTech"></span></li>
+          <li>Exterior Images: <span id="ExtImages"></span></li>
+          <li>Orthographic Map: <span id="Ortho"></span></li>
+          <li>Object ID: <span id="OBJECTID"></span></li>
+          <li>GIS Tech: <span id="GISTech"></span></li>
+          <li>Edit Date: <span id="EditDate"></span></li>
+          <li>Editor: <span id="Editor"></span></li>
         </ul>
       </div>
     </div>
@@ -254,9 +249,11 @@
     <!--add images window -->
     <div class="addImages">
       <form id="imgUploadForm">
-        <label>Add an Image</label><br /><br />
-        <label for="imgfile">Select a file:</label>
-        <input type="file" id="imgfile" name="imgfile" /><br /><br />
+        <label id="addImgLabel">Add an Image</label>
+        <div id="imgFileDialog">
+          <label for="imgfile">Select a file:</label>
+          <input type="file" id="imgfile" name="imgfile" />
+        </div>
         <button type="button" id="imageSubmit">Submit</button>
         <button type="button" id="imageCancel">Cancel</button>
       </form>

@@ -105,7 +105,7 @@ export function editAttribute(layer, graphic, attrName) {
     );
   } else {
     $("#formVariant").html(
-      `<textarea id="textEdit" name="textEdit" rows="" cols=""></textarea>`
+      `<textarea id="textEdit" name="textEdit" rows="10" cols=""></textarea>`
     );
   }
   //populate text edit box with the current value

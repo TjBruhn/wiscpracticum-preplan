@@ -23,10 +23,10 @@ export function addImages(layer, graphic, imageName) {
   let imgLabel = labelMap[imageName];
   if (imgLabel) {
     let imgLabelText = "Add " + imgLabel + " Image";
-    $("#imgUploadForm>label").html(imgLabelText);
+    $("#addImgLabel").html(imgLabelText);
   } else {
     let imgLabelText = "Add an Additional Image";
-    $("#imgUploadForm>label").html(imgLabelText);
+    $("#addImgLabel").html(imgLabelText);
   }
 
   // open add images popup
