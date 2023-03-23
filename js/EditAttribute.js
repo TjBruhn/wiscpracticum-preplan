@@ -1,8 +1,15 @@
 import { getAttributes } from "./GetAttributes.js";
 
 export function editAttribute(layer, graphic, attrName) {
+  //close any open popup window
+  $(".edit").css("display", "none");
+
+  //disable other edit buttons while pop up is open
+  $(".editBtn").prop("disabled", true);
+
   // reactivate submit button disabled in form validation
   $("#editSubmit").prop("disabled", false);
+
   let attrValue = graphic.attributes[attrName];
   let valueID = "#textEdit";
 
@@ -29,6 +36,7 @@ export function editAttribute(layer, graphic, attrName) {
     if (!attrValue) {
       $("#editSubmit").prop("disabled", true);
     }
+
     //  when a valid value is entered enable submit button
     $("#textEdit")
       .off()
@@ -139,8 +147,13 @@ export function editAttribute(layer, graphic, attrName) {
         });
       //close popup window
       $(".edit").css("display", "none");
+      //enable other edit buttons on submit
+      $(".editBtn").prop("disabled", false);
     });
   $("#editCancel").on("click", function () {
+    //close popup window
     $(".edit").css("display", "none");
+    //enable other edit buttons on cancel
+    $(".editBtn").prop("disabled", false);
   });
 }

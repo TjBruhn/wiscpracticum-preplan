@@ -209,6 +209,12 @@ require([
       //clear the graphics layer
       selectedBuildingGraphic.graphics.removeAll();
 
+      //turn edit mode off and hide button this prevents unintended editing of "completed" preplans and forces initiating editing for each building
+      $("#editMode")
+        .attr("value", "off")
+        .html("Edit Mode")
+        .css("display", "none");
+
       // only get the graphics returned from Buildings Layer
       const graphicHits = response.results?.filter(
         (hitResult) =>

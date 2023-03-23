@@ -5,9 +5,18 @@ export function getAttributes(buildings, graphic) {
 
   //Iterates through attributes attributes and writes data to cooresponding Id
   Object.keys(attributes).forEach(function (attrName) {
-    //check for data add it if it exists or note that it doesn't
-    if (attributes[attrName]) {
-      $("#" + attrName).html(attributes[attrName]);
+    let attrValue = attributes[attrName];
+
+    //display UNIX time stamp as date
+    if (attrName === "EditDate") {
+      let isoTime = new Date(attrValue).toISOString();
+      let localTime = new Date(isoTime).toString();
+      attrValue = localTime;
+    }
+
+    //check for data, add it if it exists, or note that it doesn't
+    if (attrValue) {
+      $("#" + attrName).html(attrValue);
     } else {
       $("#" + attrName).html("No Data");
     }
