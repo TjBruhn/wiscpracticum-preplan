@@ -1,6 +1,6 @@
-import { getAttachments } from "./GetAttachments.js";
+import { deleteImage, addImage } from "./ImageUtils.js";
 
-export function addImages(layer, graphic, imageName) {
+export function addImages(layer, graphic, imageName, prePlanMap) {
   //disable other edit buttons while pop up is open
   $(".editBtn").prop("disabled", true);
 
@@ -19,10 +19,28 @@ export function addImages(layer, graphic, imageName) {
     "W.JPG": "West Face",
   };
 
+  //get the attachmentId of the current image from the data element
+  let dataElement = prePlanMap[imageName] + " data";
+  let attachmentId = Number($(dataElement).val());
+
+  //add current image to popup dialog
+  let imagedialogAppend = $(prePlanMap[imageName]).html();
+  $("#currentImg").html(imagedialogAppend);
+
+  //change text to be add or replace depending on presence of an image
+  let editAction = "Replace";
+  switch (imagedialogAppend) {
+    case "No image available":
+      editAction = "Add";
+      break;
+    default:
+      break;
+  }
+
   //change form label to include name of field
   let imgLabel = labelMap[imageName];
   if (imgLabel) {
-    let imgLabelText = "Add " + imgLabel + " Image";
+    let imgLabelText = editAction + " " + imgLabel + " Image";
     $("#addImgLabel").html(imgLabelText);
   } else {
     let imgLabelText = "Add an Additional Image";
@@ -36,26 +54,17 @@ export function addImages(layer, graphic, imageName) {
   $("#imageSubmit")
     .off()
     .on("click", function () {
-      //get the file from the form
-      var file = document.getElementById("imgUploadForm")[0].files[0];
-
-      //construct new FormData object and apply new file name
-      var formData = new FormData();
-
-      //append the file to the new FormData with a new name
-      formData.append("file", file, imageName);
-
-      //add image to layer as attachment
-      layer
-        .addAttachment(graphic, formData)
-        .then((result) => {
-          console.log("attachment added: ", result);
-          //update preplan with new image
-          getAttachments(layer, graphic);
-        })
-        .catch(function (err) {
-          console.log("attachment adding failed: ", err);
-        });
+      //if replacing delete the current image before adding the new one
+      switch (editAction) {
+        case "Replace":
+          deleteImage(layer, graphic, attachmentId, false).then(
+            // if success add the image to the server
+            addImage(layer, graphic, imageName)
+          );
+          break;
+        default: //add the image to the server
+          addImage(layer, graphic, imageName);
+      }
 
       //close popup window
       $(".addImages").css("display", "none");
@@ -65,7 +74,11 @@ export function addImages(layer, graphic, imageName) {
 
       //reset the file input in the image upload form
       $("#imgfile").val("");
+
+      //clear the current image
+      $("#currentImg").html("");
     });
+
   //Cancel button closes popup
   $("#imageCancel").on("click", function () {
     //close popup window
@@ -76,5 +89,8 @@ export function addImages(layer, graphic, imageName) {
 
     //reset the file input in the image upload form
     $("#imgfile").val("");
+
+    //clear the current image
+    $("#currentImg").html("");
   });
 }

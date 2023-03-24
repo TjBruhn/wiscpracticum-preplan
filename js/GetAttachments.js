@@ -1,4 +1,5 @@
 import { addImages } from "./AddImages.js";
+import { deleteImage } from "./ImageUtils.js";
 
 export function getAttachments(buildings, graphic) {
   let clickedId = graphic.attributes.OBJECTID;
@@ -7,6 +8,7 @@ export function getAttachments(buildings, graphic) {
   let attachmentQuery = {
     objectIds: clickedId,
   };
+
   //query the buildings layer with the attachment query object
   buildings.queryAttachments(attachmentQuery).then(function (attachments) {
     //create a dictionary to be used to connect attachments to HTML id
@@ -29,7 +31,7 @@ export function getAttachments(buildings, graphic) {
       $(buttonId)
         .off()
         .on("click", function () {
-          addImages(buildings, graphic, item);
+          addImages(buildings, graphic, item, prePlanMap);
         });
     });
 
@@ -39,7 +41,7 @@ export function getAttachments(buildings, graphic) {
     $("#specialImgBtn")
       .off()
       .on("click", function () {
-        addImages(buildings, graphic, clickedId, "specialImg.jpg");
+        addImages(buildings, graphic, clickedId, prePlanMap);
         //TODO: figure out unique naming
       });
 
@@ -50,49 +52,37 @@ export function getAttachments(buildings, graphic) {
       attachment.forEach(function (item) {
         let itemName = item.name;
         let url = item.url;
-        let itemId = prePlanMap[itemName];
+        let itemHTMLId = prePlanMap[itemName];
+        let attachmentId = item.id;
+        console.log("attachment id: ", +attachmentId);
+
+        /*
+          this html string creates thumbnails by wrapping the img in <a> and pass the url to both.
+          write the attachmentID to the <data> element's value to be used to delete the image
+        */
+        let aString =
+          '<data value="' +
+          attachmentId +
+          '"></data><a target="blank" href="' +
+          url +
+          '"><img src="' +
+          url +
+          '" alt="' +
+          itemName +
+          '"/></a>';
 
         //check to see if the photo is named as expected
         if (Object.keys(prePlanMap).includes(itemName)) {
-          /*
-          add the attachment to their respective HTML ids as thumbnails
-          create thumbnails by wrapping the img in <a> and pass the url to both
-          */
-          $(itemId).html(
-            '<a target="blank" href="' +
-              url +
-              '"><img src="' +
-              url +
-              '" alt="' +
-              itemName +
-              '"/></a>'
-          );
+          // add the attachment to their respective HTML ids
+          $(itemHTMLId).html(aString);
         } else if (Object.keys(prePlanMap).includes(itemName.slice(-5))) {
-          itemId = prePlanMap[itemName.slice(-5)];
-          /*
-          add the attachment to their respective HTML ids as thumbnails
-          create thumbnails by wrapping the img in <a> and pass the url to both
-          */
-          $(itemId).html(
-            '<a target="blank" href="' +
-              url +
-              '"><img src="' +
-              url +
-              '" alt="' +
-              itemName +
-              '"/></a>'
-          );
+          //remove the campus and building from the itemName
+          itemHTMLId = prePlanMap[itemName.slice(-5)];
+          // add the attachment to their respective HTML ids
+          $(itemHTMLId).html(aString);
         } else {
           //if not named as expected add to GIS extras
-          $("#specialImg").append(
-            '<a target="blank" href="' +
-              url +
-              '"><img src="' +
-              url +
-              '" alt="' +
-              itemName +
-              '"/></a>'
-          );
+          $("#specialImg").append(aString);
         }
       });
     }
