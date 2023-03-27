@@ -8,7 +8,6 @@
   background-color: rgb(220, 220, 220);
   font-family: "Montserrat", sans-serif;
   padding: 1rem;
-
   border-bottom: 1px solid black;
 }
 
@@ -22,6 +21,11 @@ hr {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+#firstRow {
+  /* move map to top on narrow screens */
+  flex-wrap: wrap-reverse;
 }
 
 /* universal box-sizing */
@@ -52,6 +56,12 @@ img {
   background-color: #004c73; /*rgb(60, 52, 107)*/
   color: rgb(220, 220, 220);
   margin: 0;
+}
+
+@media screen and (max-width: 480px) {
+  #title h1 {
+    font-size: large;
+  }
 }
 
 #restore {
@@ -98,6 +108,8 @@ img {
   padding: 0;
   height: 85vh;
   flex: 1;
+  /* force row wrap if map would be small */
+  min-width: 300px;
 }
 
 /* 
