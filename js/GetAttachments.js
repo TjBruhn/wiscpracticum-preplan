@@ -61,11 +61,11 @@ export function getAttachments(buildings, graphic) {
           write the attachmentID to the <data> element's value to be used to delete the image
         */
         let aString =
-          '<data value="' +
-          attachmentId +
-          '"></data><a target="blank" href="' +
+          '<a target="blank" href="' +
           url +
-          '"><img src="' +
+          '"><data value="' +
+          attachmentId +
+          '"></data><img src="' +
           url +
           '" alt="' +
           itemName +
@@ -81,8 +81,32 @@ export function getAttachments(buildings, graphic) {
           // add the attachment to their respective HTML ids
           $(itemHTMLId).html(aString);
         } else {
-          //if not named as expected add to GIS extras
-          $("#specialImg").append(aString);
+          //if not named as expected add to Additional Images
+          let specialImgBtnIdtxt = "specialImgBtn" + attachmentId;
+          let specialImgBtnId = "#" + specialImgBtnIdtxt;
+          let specialImgIdtxt = "specialImg" + attachmentId;
+          let specialImgId = "#" + specialImgIdtxt;
+          let specialImgaString =
+            `<div class="imageContainer"><span id="` +
+            specialImgIdtxt +
+            `">` +
+            aString +
+            `</span><button type="button" class="editBtn" id="` +
+            specialImgBtnIdtxt +
+            `">Edit Image</button></div>`;
+          $("#specialImg").append(specialImgaString);
+          $(specialImgBtnId)
+            .off()
+            .on("click", function () {
+              addImages(
+                buildings,
+                graphic,
+                clickedId,
+                prePlanMap,
+                attachmentId,
+                specialImgId
+              );
+            });
         }
       });
     }

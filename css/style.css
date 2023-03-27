@@ -40,13 +40,8 @@ html {
 img {
   border: 1px solid #ddd; /* Gray border */
   border-radius: 0.22rem;
-  padding: 0.4rem; /* Some padding */
+  padding: 0.2rem; /* Some padding */
   width: 10rem; /* Set a small width */
-}
-
-/* Add a hover effect (blue shadow) */
-img:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
 /* 
@@ -127,8 +122,20 @@ img:hover {
   padding-left: 1rem;
 }
 
-.infoImg span {
+.infoImg span,
+.imageContainer span {
   padding-left: 0;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgb(199, 197, 197);
+  border-radius: 0.22rem;
+  margin: 0.1rem;
+  padding: 0.1rem;
+  text-align: center;
 }
 
 .notes {
@@ -137,7 +144,6 @@ img:hover {
 
 .infoImg,
 .bldgImg,
-#specialImg,
 #gisExtra {
   flex: 1;
 }

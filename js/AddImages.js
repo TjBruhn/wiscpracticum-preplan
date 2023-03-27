@@ -1,8 +1,29 @@
 import { deleteImage, addImage } from "./ImageUtils.js";
 
-export function addImages(layer, graphic, imageName, prePlanMap) {
+export function addImages(
+  layer,
+  graphic,
+  imageName,
+  prePlanMap,
+  attachmentId = "",
+  specialImgId = ""
+) {
   //disable other edit buttons while pop up is open
   $(".editBtn").prop("disabled", true);
+
+  function closePopup() {
+    //close popup window
+    $(".addImages").css("display", "none");
+
+    //enable other edit buttons on submit
+    $(".editBtn").prop("disabled", false);
+
+    //reset the file input in the image upload form
+    $("#imgfile").val("");
+
+    //clear the current image
+    $("#currentImg").html("");
+  }
 
   //TODO: figure out unique naming for special images
   //  coordinate with line 43 in GetAttachments.js
@@ -19,36 +40,70 @@ export function addImages(layer, graphic, imageName, prePlanMap) {
     "W.JPG": "West Face",
   };
 
-  //get the attachmentId of the current image from the data element
-  let dataElement = prePlanMap[imageName] + " data";
-  let attachmentId = Number($(dataElement).val());
+  //if no attachmentId argument is supplied get the attachmentId of the current image from the data element
+  switch (attachmentId) {
+    case "":
+      let dataElement = prePlanMap[imageName] + " a data";
+      attachmentId = Number($(dataElement).val());
+      break;
+    default:
+      break;
+  }
 
-  //add current image to popup dialog
-  let imagedialogAppend = $(prePlanMap[imageName]).html();
-  $("#currentImg").html(imagedialogAppend);
+  let imagedialogAppend;
+  if (specialImgId) {
+    //if specialImgId argument is supplied get the image using the specialImageId
+    imagedialogAppend = $(specialImgId).html();
+  } else if (!specialImgId) {
+    //if no specialImgId argument is supplied get the image from the associated element in the prePlanMap
+    imagedialogAppend = $(prePlanMap[imageName]).html();
+  }
 
   //change text to be add or replace depending on presence of an image
   let editAction = "Replace";
   switch (imagedialogAppend) {
     case "No image available":
       editAction = "Add";
+      $("#imageDelete").css("display", "none");
+      break;
+    case undefined: //catches the additional images category
+      editAction = "Add";
+      $("#imageDelete").css("display", "none");
       break;
     default:
+      $("#imageDelete").css("display", "inline-block");
+      //add current image to popup dialog
+      $("#currentImg").html(imagedialogAppend);
       break;
   }
 
   //change form label to include name of field
+  //set default values
   let imgLabel = labelMap[imageName];
+  let imgLabelText = editAction + " " + imgLabel + " Image";
   if (imgLabel) {
-    let imgLabelText = editAction + " " + imgLabel + " Image";
+    // if it is not a special Image use the map to get the category text and then use default values
+    $("#addImgLabel").html(imgLabelText);
+  } else if (specialImgId) {
+    // if it is a special image use the image's attachment id in the replacement text
+    imgLabelText = editAction + " Image #" + attachmentId;
     $("#addImgLabel").html(imgLabelText);
   } else {
-    let imgLabelText = "Add an Additional Image";
+    // text for the general additional image add button
+    imgLabelText = "Add an Additional Image";
     $("#addImgLabel").html(imgLabelText);
   }
 
   // open add images popup
   $(".addImages").css("display", "block");
+
+  // action for delete image button
+  $("#imageDelete")
+    .off()
+    .on("click", function () {
+      deleteImage(layer, graphic, attachmentId, true);
+      closePopup();
+    });
 
   // action for submit image button
   $("#imageSubmit")
@@ -66,31 +121,9 @@ export function addImages(layer, graphic, imageName, prePlanMap) {
           addImage(layer, graphic, imageName);
       }
 
-      //close popup window
-      $(".addImages").css("display", "none");
-
-      //enable other edit buttons on submit
-      $(".editBtn").prop("disabled", false);
-
-      //reset the file input in the image upload form
-      $("#imgfile").val("");
-
-      //clear the current image
-      $("#currentImg").html("");
+      closePopup();
     });
 
   //Cancel button closes popup
-  $("#imageCancel").on("click", function () {
-    //close popup window
-    $(".addImages").css("display", "none");
-
-    //enable other edit buttons on cancel
-    $(".editBtn").prop("disabled", false);
-
-    //reset the file input in the image upload form
-    $("#imgfile").val("");
-
-    //clear the current image
-    $("#currentImg").html("");
-  });
+  $("#imageCancel").on("click", () => closePopup());
 }
