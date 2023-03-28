@@ -1,14 +1,13 @@
 /* 
 ======== Global or Group ========
 */
-
-#title h1,
-.info,
-#viewDiv {
-  background-color: rgb(220, 220, 220);
+body {
   font-family: "Montserrat", sans-serif;
-  padding: 1rem;
+}
 
+.info {
+  background-color: rgb(220, 220, 220);
+  padding: 1rem;
   border-bottom: 1px solid black;
 }
 
@@ -22,6 +21,12 @@ hr {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+#firstRow {
+  /* move map to top on narrow screens */
+  flex-wrap: wrap-reverse;
+  background-color: rgb(220, 220, 220);
 }
 
 /* universal box-sizing */
@@ -40,13 +45,8 @@ html {
 img {
   border: 1px solid #ddd; /* Gray border */
   border-radius: 0.22rem;
-  padding: 0.4rem; /* Some padding */
+  padding: 0.2rem; /* Some padding */
   width: 10rem; /* Set a small width */
-}
-
-/* Add a hover effect (blue shadow) */
-img:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
 /* 
@@ -57,19 +57,26 @@ img:hover {
   background-color: #004c73; /*rgb(60, 52, 107)*/
   color: rgb(220, 220, 220);
   margin: 0;
+  padding: 1rem;
+}
+#title {
+  background-color: #004c73; /*rgb(60, 52, 107)*/
+  border-bottom: 1px solid black;
+}
+
+#restore,
+#editMode {
+  font-size: 1rem;
+  display: none;
+  color: white;
+  border-radius: 0.22rem;
+  flex: 1;
+  margin: 0 0.2rem 0.2rem;
 }
 
 #restore {
-  font-size: 1rem;
-  display: none;
-  position: absolute;
-  top: 2rem;
-  right: 1rem;
-  z-index: 2;
   background-color: red;
-  color: white;
   border: 2px solid red;
-  border-radius: 0.22rem;
 }
 
 #restore:hover {
@@ -78,16 +85,8 @@ img:hover {
 }
 
 #editMode {
-  font-size: 1rem;
-  display: none;
-  position: absolute;
-  top: 2rem;
-  left: 1rem;
-  z-index: 2;
   background-color: blue;
-  color: white;
   border: 2px solid blue;
-  border-radius: 0.22rem;
 }
 
 #editMode:hover {
@@ -101,8 +100,11 @@ img:hover {
 
 #viewDiv {
   padding: 0;
-  height: 85vh;
+  height: 90vh;
   flex: 1;
+  /* force row wrap if map would be small */
+  min-width: 300px;
+  border-bottom: 1px solid black;
 }
 
 /* 
@@ -111,6 +113,7 @@ img:hover {
 
 #content {
   flex: 1;
+  min-width: 250px;
 }
 
 .info {
@@ -127,19 +130,37 @@ img:hover {
   padding-left: 1rem;
 }
 
-.infoImg span {
+.infoImg span,
+.imageContainer span {
   padding-left: 0;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgb(199, 197, 197);
+  border-radius: 0.22rem;
+  margin: 0.1rem;
+  padding: 0.1rem;
+  text-align: center;
 }
 
 .notes {
   flex: 6;
+  min-width: 250px;
+}
+
+.infoImg {
+  display: none;
+  justify-content: center;
 }
 
 .infoImg,
 .bldgImg,
-#specialImg,
 #gisExtra {
   flex: 1;
+  min-width: 250px;
 }
 
 .bldgImg {
@@ -157,9 +178,8 @@ img:hover {
   display: none;
   text-align: center;
   position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%);
+  top: 20%;
+  left: 10%;
   width: 80%;
   background-color: white;
   color: black;
@@ -192,6 +212,12 @@ img:hover {
   padding-bottom: 1rem;
 }
 
+#imgfile {
+  /* forces filename to compress within the available space */
+  width: 100%;
+  text-align: center;
+}
+
 /* form validation styles */
 input:invalid + span::after {
   position: absolute;
@@ -209,4 +235,22 @@ input:valid + span::after {
 
 #gisExtraDetails {
   font-size: x-small;
+}
+
+@media screen and (max-width: 767px) {
+  #title h1 {
+    font-size: large;
+    padding: 0.5rem;
+  }
+  #restore,
+  #editMode {
+    font-size: 0.85rem;
+  }
+  #viewDiv {
+    height: 90vh;
+  }
+
+  .wrapTopRow {
+    border-bottom: none;
+  }
 }

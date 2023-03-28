@@ -210,6 +210,7 @@ require([
       selectedBuildingGraphic.graphics.removeAll();
 
       //turn edit mode off and hide button this prevents unintended editing of "completed" preplans and forces initiating editing for each building
+      $(".editBtn").css("display", "none");
       $("#editMode")
         .attr("value", "off")
         .html("Edit Mode")
@@ -283,7 +284,8 @@ require([
 
   //restore map view to full width
   $("#restore").on("click", () => {
-    $("#viewDiv").height("85vh");
+    //passing empty value reverts to style sheet
+    $("#viewDiv").height("");
     //hide the button
     $("#restore").css("display", "none");
     //hide all content
