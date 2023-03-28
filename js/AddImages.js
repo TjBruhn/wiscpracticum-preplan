@@ -82,10 +82,10 @@ export function addImages(
   let imgLabel = labelMap[imageName];
   let imgLabelText = editAction + " " + imgLabel + " Image";
   if (imgLabel) {
-    // if it is not a special Image use the map to get the category text and then use default values
+    // if it is not a special Image, use the map to get the category text and then use default values
     $("#addImgLabel").html(imgLabelText);
   } else if (specialImgId) {
-    // if it is a special image use the image's attachment id in the replacement text
+    // if it is a special image, use the image's attachment id in the replacement text
     imgLabelText = editAction + " Image #" + attachmentId;
     $("#addImgLabel").html(imgLabelText);
   } else {

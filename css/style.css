@@ -172,7 +172,14 @@ img {
   border-right: 1px solid rgb(199, 197, 197);
 }
 
-/* Edit window */
+#gisExtraDetails {
+  font-size: x-small;
+}
+
+/* 
+======== Edit window ========
+*/
+
 .edit,
 .addImages {
   display: none;
@@ -233,21 +240,16 @@ input:valid + span::after {
   color: #009000;
 }
 
-#gisExtraDetails {
-  font-size: x-small;
-}
-
+/* changes to improve small screen ux  */
 @media screen and (max-width: 767px) {
   #title h1 {
     font-size: large;
     padding: 0.5rem;
   }
+
   #restore,
   #editMode {
     font-size: 0.85rem;
-  }
-  #viewDiv {
-    height: 90vh;
   }
 
   .wrapTopRow {

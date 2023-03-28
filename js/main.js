@@ -275,13 +275,6 @@ require([
 
   //END: Select building and launch preplan ======
 
-  //TODO: DELETE: utility event listener used in development
-  // view.on("click", function (event) {
-  //   console.log(
-  //     "[" + event.mapPoint.longitude + ", " + event.mapPoint.latitude + "]"
-  //   );
-  // });
-
   //restore map view to full width
   $("#restore").on("click", () => {
     //passing empty value reverts to style sheet
