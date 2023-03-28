@@ -42,4 +42,7 @@ export function addImage(layer, graphic, imageName) {
     .catch(function (err) {
       console.log("attachment adding failed: ", err);
     });
+
+  // $(".editBtn").css("display", "none");
+  // $(".editBtn").css("display", "inline");
 }

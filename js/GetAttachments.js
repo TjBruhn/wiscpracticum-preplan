@@ -1,7 +1,6 @@
 import { addImages } from "./AddImages.js";
-import { deleteImage } from "./ImageUtils.js";
 
-export function getAttachments(buildings, graphic) {
+export async function getAttachments(buildings, graphic) {
   let clickedId = graphic.attributes.OBJECTID;
 
   //create an attachment query object with the clicked feature's objectid
@@ -76,25 +75,49 @@ export function getAttachments(buildings, graphic) {
           // add the attachment to their respective HTML ids
           $(itemHTMLId).html(aString);
         } else if (Object.keys(prePlanMap).includes(itemName.slice(-5))) {
-          //remove the campus and building from the itemName
+          // remove the campus and building from the itemName
           itemHTMLId = prePlanMap[itemName.slice(-5)];
           // add the attachment to their respective HTML ids
           $(itemHTMLId).html(aString);
         } else {
-          //if not named as expected add to Additional Images
+          // if not named as expected add to Additional Images
+          // set display value for the edit buttons based on edit mode
+          let displayValue;
+          switch ($("#editMode").attr("value")) {
+            case "off":
+              displayValue = "none";
+              break;
+            case "on":
+              displayValue = "inline";
+              break;
+            default:
+              break;
+          }
+
+          // set variables for composing the special image aString that will be appended
           let specialImgBtnIdtxt = "specialImgBtn" + attachmentId;
-          let specialImgBtnId = "#" + specialImgBtnIdtxt;
           let specialImgIdtxt = "specialImg" + attachmentId;
-          let specialImgId = "#" + specialImgIdtxt;
+
+          // compose an HTML string to append image in acontainer with an edit button
           let specialImgaString =
             `<div class="imageContainer"><span id="` +
             specialImgIdtxt +
             `">` +
             aString +
-            `</span><button type="button" class="editBtn" id="` +
+            `</span><button type="button" class="editBtn" style="display:` +
+            displayValue +
+            `" id="` +
             specialImgBtnIdtxt +
             `">Edit Image</button></div>`;
+
+          // append the HTML string
           $("#specialImg").append(specialImgaString);
+
+          // extend variables with # to make them useable in jquery calls
+          let specialImgBtnId = "#" + specialImgBtnIdtxt;
+          let specialImgId = "#" + specialImgIdtxt;
+
+          // bind add images function to new buttons
           $(specialImgBtnId)
             .off()
             .on("click", function () {
@@ -111,5 +134,5 @@ export function getAttachments(buildings, graphic) {
       });
     }
   });
-  //END Attachments Query
+  // END Attachments Query
 }

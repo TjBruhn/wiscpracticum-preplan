@@ -178,9 +178,8 @@ img {
   display: none;
   text-align: center;
   position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%);
+  top: 20%;
+  left: 10%;
   width: 80%;
   background-color: white;
   color: black;
@@ -211,6 +210,12 @@ img {
 #imgFileDialog {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+#imgfile {
+  /* forces filename to compress within the available space */
+  width: 100%;
+  text-align: center;
 }
 
 /* form validation styles */

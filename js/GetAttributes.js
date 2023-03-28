@@ -37,6 +37,7 @@ export function getAttributes(buildings, graphic) {
     $("#viewDiv").css("display", "none");
     $("#restore").css("display", "block");
     $(".info").css("display", "block");
+    $(".infoImg").css("display", "flex");
   }
 
   writeData().then(() => {

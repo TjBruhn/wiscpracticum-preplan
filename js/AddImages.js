@@ -101,8 +101,10 @@ export function addImages(
   $("#imageDelete")
     .off()
     .on("click", function () {
-      deleteImage(layer, graphic, attachmentId, true);
-      closePopup();
+      if (confirm("Are you sure you want to delete this?") === true) {
+        deleteImage(layer, graphic, attachmentId, true);
+        closePopup();
+      }
     });
 
   // action for submit image button
@@ -112,10 +114,16 @@ export function addImages(
       //if replacing delete the current image before adding the new one
       switch (editAction) {
         case "Replace":
-          deleteImage(layer, graphic, attachmentId, false).then(
-            // if success add the image to the server
-            addImage(layer, graphic, imageName)
-          );
+          if (
+            confirm("Replacing deletes the current image. Are you sure?") ===
+            true
+          ) {
+            deleteImage(layer, graphic, attachmentId, false).then(
+              // if success add the image to the server
+              addImage(layer, graphic, imageName)
+            );
+          }
+
           break;
         default: //add the image to the server
           addImage(layer, graphic, imageName);
