@@ -32,6 +32,7 @@ export function getAttributes(buildings, graphic) {
           editAttribute(buildings, graphic, attrName);
         });
     });
+
     //show the restore button and the info content
     $("#viewDiv").css("display", "none");
     $("#restore").css("display", "block");

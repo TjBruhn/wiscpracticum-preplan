@@ -1,12 +1,12 @@
 /* 
 ======== Global or Group ========
 */
-
-#title h1,
-.info,
-#viewDiv {
-  background-color: rgb(220, 220, 220);
+body {
   font-family: "Montserrat", sans-serif;
+}
+
+.info {
+  background-color: rgb(220, 220, 220);
   padding: 1rem;
   border-bottom: 1px solid black;
 }
@@ -26,6 +26,7 @@ hr {
 #firstRow {
   /* move map to top on narrow screens */
   flex-wrap: wrap-reverse;
+  background-color: rgb(220, 220, 220);
 }
 
 /* universal box-sizing */
@@ -56,25 +57,26 @@ img {
   background-color: #004c73; /*rgb(60, 52, 107)*/
   color: rgb(220, 220, 220);
   margin: 0;
+  padding: 1rem;
+}
+#title {
+  background-color: #004c73; /*rgb(60, 52, 107)*/
+  border-bottom: 1px solid black;
 }
 
-@media screen and (max-width: 480px) {
-  #title h1 {
-    font-size: large;
-  }
+#restore,
+#editMode {
+  font-size: 1rem;
+  display: none;
+  color: white;
+  border-radius: 0.22rem;
+  flex: 1;
+  margin: 0 0.2rem 0.2rem;
 }
 
 #restore {
-  font-size: 1rem;
-  display: none;
-  position: absolute;
-  top: 2rem;
-  right: 1rem;
-  z-index: 2;
   background-color: red;
-  color: white;
   border: 2px solid red;
-  border-radius: 0.22rem;
 }
 
 #restore:hover {
@@ -83,16 +85,8 @@ img {
 }
 
 #editMode {
-  font-size: 1rem;
-  display: none;
-  position: absolute;
-  top: 2rem;
-  left: 1rem;
-  z-index: 2;
   background-color: blue;
-  color: white;
   border: 2px solid blue;
-  border-radius: 0.22rem;
 }
 
 #editMode:hover {
@@ -106,10 +100,11 @@ img {
 
 #viewDiv {
   padding: 0;
-  height: 85vh;
+  height: 90vh;
   flex: 1;
   /* force row wrap if map would be small */
   min-width: 300px;
+  border-bottom: 1px solid black;
 }
 
 /* 
@@ -118,6 +113,7 @@ img {
 
 #content {
   flex: 1;
+  min-width: 250px;
 }
 
 .info {
@@ -152,12 +148,19 @@ img {
 
 .notes {
   flex: 6;
+  min-width: 250px;
+}
+
+.infoImg {
+  display: none;
+  justify-content: center;
 }
 
 .infoImg,
 .bldgImg,
 #gisExtra {
   flex: 1;
+  min-width: 250px;
 }
 
 .bldgImg {
@@ -227,4 +230,22 @@ input:valid + span::after {
 
 #gisExtraDetails {
   font-size: x-small;
+}
+
+@media screen and (max-width: 767px) {
+  #title h1 {
+    font-size: large;
+    padding: 0.5rem;
+  }
+  #restore,
+  #editMode {
+    font-size: 0.85rem;
+  }
+  #viewDiv {
+    height: 90vh;
+  }
+
+  .wrapTopRow {
+    border-bottom: none;
+  }
 }

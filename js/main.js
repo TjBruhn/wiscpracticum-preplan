@@ -284,7 +284,8 @@ require([
 
   //restore map view to full width
   $("#restore").on("click", () => {
-    $("#viewDiv").height("85vh");
+    //passing empty value reverts to style sheet
+    $("#viewDiv").height("");
     //hide the button
     $("#restore").css("display", "none");
     //hide all content

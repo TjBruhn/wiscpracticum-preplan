@@ -33,9 +33,12 @@
   </head>
   <body>
     <header id="title">
-      <button id="editMode" value="off">Edit Mode</button>
       <h1>PHG Preplan Vizualizer</h1>
-      <button id="restore">Restore Map View</button>
+
+      <div class="row">
+        <button id="editMode" value="off">Edit Mode</button>
+        <button id="restore">Restore Map View</button>
+      </div>
     </header>
 
     <div class="row" id="firstRow">
@@ -151,7 +154,7 @@
 
     <!--Building features-->
     <div class="row">
-      <div class="info notes">
+      <div class="info notes wrapTopRow">
         <h3>Panel Info:</h3>
         <button type="button" class="editBtn" id="PanelInfoBtn">edit</button>
         <span id="PanelInfo"></span>
@@ -167,7 +170,7 @@
     </div>
 
     <div class="row">
-      <div class="info notes">
+      <div class="info notes wrapTopRow">
         <h3>Riser:</h3>
         <button type="button" class="editBtn" id="RiserBtn">edit</button>
         <span id="Riser"></span>
@@ -183,7 +186,7 @@
     </div>
 
     <div class="row">
-      <div class="info notes">
+      <div class="info notes wrapTopRow">
         <h3>FACP:</h3>
         <button type="button" class="editBtn" id="FACPBtn">edit</button>
         <span id="FACP"></span>
@@ -199,7 +202,7 @@
     </div>
 
     <div class="row">
-      <div class="info notes">
+      <div class="info notes wrapTopRow">
         <h3>Special Hazard:</h3>
         <button type="button" class="editBtn" id="SpecialHazardBtn">
           edit
