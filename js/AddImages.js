@@ -90,7 +90,7 @@ export function addImages(
     $("#addImgLabel").html(imgLabelText);
   } else {
     // text for the general additional image add button
-    imgLabelText = "Add an Additional Image";
+    imgLabelText = "Add Additional Image";
     $("#addImgLabel").html(imgLabelText);
   }
 

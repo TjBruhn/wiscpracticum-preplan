@@ -210,6 +210,7 @@ require([
       selectedBuildingGraphic.graphics.removeAll();
 
       //turn edit mode off and hide button this prevents unintended editing of "completed" preplans and forces initiating editing for each building
+      $(".editHide").show();
       $(".editBtn").css("display", "none");
       $("#editMode")
         .attr("value", "off")
@@ -287,6 +288,7 @@ require([
     selectedBuildingGraphic.graphics.removeAll();
     //hide edit editMode buttons
     $(".editBtn").css("display", "none");
+    $(".editHide").show();
     //turn edit mode off and hide button
     $("#editMode")
       .attr("value", "off")
@@ -298,15 +300,18 @@ require([
   $("#editMode").on("click", () => {
     if ($("#editMode").attr("value") == "off") {
       $(".editBtn").css("display", "inline");
+      $(".editHide").hide();
       $("#editMode").attr("value", "on").html("Edit Mode=On");
-
-      //resize the map Div
-      //match the map height to the height of the content
-      let contentHeight = $("#content").innerHeight();
-      $("#viewDiv").height(contentHeight);
     } else if ($("#editMode").attr("value") == "on") {
       $(".editBtn").css("display", "none");
+      $(".editHide").show();
       $("#editMode").attr("value", "off").html("Edit Mode");
     }
+    //resize the map Div
+    //match the map height to the height of the content
+    $("#viewDiv").hide();
+    let contentHeight = $("#content").innerHeight();
+    $("#viewDiv").height(contentHeight);
+    $("#viewDiv").show();
   });
 });

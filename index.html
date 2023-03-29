@@ -43,69 +43,90 @@
 
     <div class="row" id="firstRow">
       <div class="info" id="content">
-        <h3>Building Name:</h3>
-        <button type="button" class="editBtn" id="NameBtn">edit</button>
-        <span id="Name"></span><br />
-        <h3>Campus:</h3>
-        <button type="button" class="editBtn" id="CampusBtn">edit</button>
-        <span id="Campus"></span><br />
-        <h3>Address:</h3>
-        <button type="button" class="editBtn" id="AddressBtn">edit</button>
-        <span id="Address"></span><br />
+        <h3 class="editHide">Name:</h3>
+        <button type="button" class="editBtn" id="NameBtn">
+          <h3>Name:</h3>
+        </button>
+        <span class="attrVal" id="Name"></span><br />
+
+        <h3 class="editHide">Campus:</h3>
+        <button type="button" class="editBtn" id="CampusBtn">
+          <h3>Campus:</h3>
+        </button>
+        <span class="attrVal" id="Campus"></span><br />
+
+        <h3 class="editHide">Address:</h3>
+        <button type="button" class="editBtn" id="AddressBtn">
+          <h3>Address:</h3>
+        </button>
+        <span class="attrVal" id="Address"></span><br />
         <hr />
 
-        <h3>POC Name:</h3>
-        <button type="button" class="editBtn" id="POCNameBtn">edit</button>
-        <span id="POCName"></span><br />
-        <h3>POC Number:</h3>
-        <button type="button" class="editBtn" id="POCNumberBtn">edit</button>
-        <span id="POCNumber"></span><br />
+        <h3 class="editHide">POC Name:</h3>
+        <button type="button" class="editBtn" id="POCNameBtn">
+          <h3>POC Name:</h3>
+        </button>
+        <span class="attrVal" id="POCName"></span><br />
+
+        <h3 class="editHide">POC Number:</h3>
+        <button type="button" class="editBtn" id="POCNumberBtn">
+          <h3>POC Number:</h3>
+        </button>
+        <span class="attrVal" id="POCNumber"></span><br />
 
         <hr />
         <ul>
           <li>
-            Sprinklers:
+            <h4 class="editHide">Sprinklers:</h4>
             <button type="button" class="editBtn" id="SprinklersBtn">
-              edit
+              <h4>Sprinklers:</h4>
             </button>
-            <span id="Sprinklers"></span>
+            <span class="attrVal" id="Sprinklers"></span>
           </li>
           <li>
-            Detectors:
+            <h4 class="editHide">Detectors:</h4>
             <button type="button" class="editBtn" id="DetectorsBtn">
-              edit
+              <h4>Detectors:</h4>
             </button>
-            <span id="Detectors"></span>
+            <span class="attrVal" id="Detectors"></span>
           </li>
           <li>
-            Electricity:
+            <h4 class="editHide">Electricity:</h4>
             <button type="button" class="editBtn" id="ElectricityBtn">
-              edit
+              <h4>Electricity:</h4>
             </button>
-            <span id="Electricity"></span>
+            <span class="attrVal" id="Electricity"></span>
           </li>
           <li>
-            Water:
-            <button type="button" class="editBtn" id="WaterBtn">edit</button>
-            <span id="Water"></span>
+            <h4 class="editHide">Water:</h4>
+            <button type="button" class="editBtn" id="WaterBtn">
+              <h4>Water:</h4>
+            </button>
+            <span class="attrVal" id="Water"></span>
           </li>
           <li>
-            Gas:
-            <button type="button" class="editBtn" id="GasBtn">edit</button>
-            <span id="Gas"></span>
+            <h4 class="editHide">Gas:</h4>
+            <button type="button" class="editBtn" id="GasBtn">
+              <h4>Gas:</h4>
+            </button>
+            <span class="attrVal" id="Gas"></span>
           </li>
         </ul>
 
         <hr />
-        <h3>SqFt:</h3>
-        <button type="button" class="editBtn" id="SqFtBtn">edit</button>
-        <span id="SqFt"></span><br />
-        <h3>Power Provider:</h3>
-        <button type="button" class="editBtn" id="PowerProviderBtn">
-          edit
+        <h3 class="editHide">SqFt:</h3>
+        <button type="button" class="editBtn" id="SqFtBtn">
+          <h3>SqFt:</h3>
         </button>
-        <span id="PowerProvider"></span><br />
+        <span class="attrVal" id="SqFt"></span><br />
+
+        <h3 class="editHide">Power Provider:</h3>
+        <button type="button" class="editBtn" id="PowerProviderBtn">
+          <h3>Power Provider:</h3>
+        </button>
+        <span class="attrVal" id="PowerProvider"></span><br />
       </div>
+
       <!--Map frame-->
       <div id="viewDiv"></div>
     </div>
@@ -113,17 +134,21 @@
     <!--content below map-->
     <div class="row">
       <div class="info notes">
-        <h3>Water Supply:</h3>
-        <button type="button" class="editBtn" id="WaterSupplyBtn">edit</button>
-        <span id="WaterSupply"></span>
+        <h3 class="editHide">Water Supply:</h3>
+        <button type="button" class="editBtn" id="WaterSupplyBtn">
+          <h3>Water Supply:</h3>
+        </button>
+        <span class="attrVal" id="WaterSupply"></span>
       </div>
     </div>
 
     <div class="row">
       <div class="info notes">
-        <h3>Notes:</h3>
-        <button type="button" class="editBtn" id="NotesBtn">edit</button>
-        <span id="Notes"></span>
+        <h3 class="editHide">Notes:</h3>
+        <button type="button" class="editBtn" id="NotesBtn">
+          <h3>Notes:</h3>
+        </button>
+        <span class="attrVal" id="Notes"></span>
       </div>
     </div>
 
@@ -155,9 +180,11 @@
     <!--Building features-->
     <div class="row">
       <div class="info notes wrapTopRow">
-        <h3>Panel Info:</h3>
-        <button type="button" class="editBtn" id="PanelInfoBtn">edit</button>
-        <span id="PanelInfo"></span>
+        <h3 class="editHide">Panel Info:</h3>
+        <button type="button" class="editBtn" id="PanelInfoBtn">
+          <h3>Panel Info:</h3>
+        </button>
+        <span class="attrVal" id="PanelInfo"></span>
       </div>
       <div class="info infoImg">
         <div class="imageContainer">
@@ -171,9 +198,11 @@
 
     <div class="row">
       <div class="info notes wrapTopRow">
-        <h3>Riser:</h3>
-        <button type="button" class="editBtn" id="RiserBtn">edit</button>
-        <span id="Riser"></span>
+        <h3 class="editHide">Riser:</h3>
+        <button type="button" class="editBtn" id="RiserBtn">
+          <h3>Riser:</h3>
+        </button>
+        <span class="attrVal" id="Riser"></span>
       </div>
       <div class="info infoImg">
         <div class="imageContainer">
@@ -187,9 +216,11 @@
 
     <div class="row">
       <div class="info notes wrapTopRow">
-        <h3>FACP:</h3>
-        <button type="button" class="editBtn" id="FACPBtn">edit</button>
-        <span id="FACP"></span>
+        <h3 class="editHide">FACP:</h3>
+        <button type="button" class="editBtn" id="FACPBtn">
+          <h3>FACP:</h3>
+        </button>
+        <span class="attrVal" id="FACP"></span>
       </div>
       <div class="info infoImg">
         <div class="imageContainer">
@@ -203,11 +234,11 @@
 
     <div class="row">
       <div class="info notes wrapTopRow">
-        <h3>Special Hazard:</h3>
+        <h3 class="editHide">Special Hazard:</h3>
         <button type="button" class="editBtn" id="SpecialHazardBtn">
-          edit
+          <h3>Special Hazard:</h3>
         </button>
-        <span id="SpecialHazard"></span>
+        <span class="attrVal" id="SpecialHazard"></span>
       </div>
       <div class="info infoImg">
         <div class="imageContainer">
@@ -222,9 +253,9 @@
     <!--Additional images-->
     <div class="row">
       <div class="info notes">
-        <h3>Additional Images:</h3>
+        <h3 class="editHide">Additional Images:</h3>
         <button type="button" class="editBtn" id="specialImgBtn">
-          Add Image
+          <h3>Add Additional Image</h3>
         </button>
         <div class="row" id="specialImg"></div>
       </div>
@@ -236,17 +267,19 @@
         <h3>Preplan Status:</h3>
         <ul id="gisExtraDetails">
           <li>
-            Status:
-            <button type="button" class="editBtn" id="StatusBtn">edit</button>
-            <span id="Status"></span>
+            <span class="editHide">Status:</span>
+            <button type="button" class="editBtn" id="StatusBtn">
+              Status:
+            </button>
+            <span class="attrVal" id="Status"></span>
           </li>
 
-          <li>Exterior Images: <span id="ExtImages"></span></li>
-          <li>Orthographic Map: <span id="Ortho"></span></li>
-          <li>Object ID: <span id="OBJECTID"></span></li>
-          <li>GIS Tech: <span id="GISTech"></span></li>
-          <li>Edit Date: <span id="EditDate"></span></li>
-          <li>Editor: <span id="Editor"></span></li>
+          <li>Exterior Images: <span class="attrVal" id="ExtImages"></span></li>
+          <li>Orthographic Map: <span class="attrVal" id="Ortho"></span></li>
+          <li>Object ID: <span class="attrVal" id="OBJECTID"></span></li>
+          <li>GIS Tech: <span class="attrVal" id="GISTech"></span></li>
+          <li>Edit Date: <span class="attrVal" id="EditDate"></span></li>
+          <li>Editor: <span class="attrVal" id="Editor"></span></li>
         </ul>
       </div>
     </div>
@@ -265,12 +298,14 @@
     <div class="addImages">
       <form id="imgUploadForm">
         <label id="addImgLabel">Add an Image</label>
+
         <div id="currentImg"></div>
         <div id="imgFileDialog">
           <label for="imgfile">Select a file:</label>
           <br />
           <input type="file" id="imgfile" name="imgfile" />
         </div>
+
         <button type="button" id="imageDelete">Delete</button>
         <button type="button" id="imageSubmit">Submit</button>
         <button type="button" id="imageCancel">Cancel</button>

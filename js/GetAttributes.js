@@ -34,7 +34,7 @@ export function getAttributes(buildings, graphic) {
     });
 
     //show the restore button and the info content
-    $("#viewDiv").css("display", "none");
+    $("#viewDiv").hide();
     $("#restore").css("display", "block");
     $(".info").css("display", "block");
     $(".infoImg").css("display", "flex");
@@ -45,6 +45,6 @@ export function getAttributes(buildings, graphic) {
     //match the map height to the height of the content
     let contentHeight = $("#content").innerHeight();
     $("#viewDiv").height(contentHeight);
-    $("#viewDiv").css("display", "flex");
+    $("#viewDiv").show();
   });
 }
