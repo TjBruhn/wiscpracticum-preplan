@@ -287,6 +287,7 @@ require([
     selectedBuildingGraphic.graphics.removeAll();
     //hide edit editMode buttons
     $(".editBtn").css("display", "none");
+    $(".editHide").show();
     //turn edit mode off and hide button
     $("#editMode")
       .attr("value", "off")
@@ -298,6 +299,7 @@ require([
   $("#editMode").on("click", () => {
     if ($("#editMode").attr("value") == "off") {
       $(".editBtn").css("display", "inline");
+      $(".editHide").hide();
       $("#editMode").attr("value", "on").html("Edit Mode=On");
 
       //resize the map Div
@@ -306,6 +308,7 @@ require([
       $("#viewDiv").height(contentHeight);
     } else if ($("#editMode").attr("value") == "on") {
       $(".editBtn").css("display", "none");
+      $(".editHide").show();
       $("#editMode").attr("value", "off").html("Edit Mode");
     }
   });

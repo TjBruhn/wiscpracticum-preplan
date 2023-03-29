@@ -1,8 +1,17 @@
 /* 
 ======== Global or Group ========
 */
-body {
+body,
+.editBtn {
   font-family: "Montserrat", sans-serif;
+}
+
+.editBtn {
+  margin: 0.1rem;
+  /* border: 1px solid blue; */
+
+  border-radius: 0.22rem;
+  filter: drop-shadow(1px 1px 1px grey);
 }
 
 .info {
@@ -120,7 +129,8 @@ img {
   display: none;
 }
 
-.info h3 {
+.info h3,
+.info h4 {
   /*remove auto line break after h3*/
   display: inline;
   text-transform: uppercase;

@@ -53,7 +53,6 @@ export async function getAttachments(buildings, graphic) {
         let url = item.url;
         let itemHTMLId = prePlanMap[itemName];
         let attachmentId = item.id;
-        console.log("attachment id: ", +attachmentId);
 
         /*
           this html string creates thumbnails by wrapping the img in <a> and pass the url to both.
