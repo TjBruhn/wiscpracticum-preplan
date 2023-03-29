@@ -1,6 +1,6 @@
 import { addImages } from "./AddImages.js";
 
-export async function getAttachments(buildings, graphic) {
+export function getAttachments(buildings, graphic) {
   let clickedId = graphic.attributes.OBJECTID;
 
   //create an attachment query object with the clicked feature's objectid

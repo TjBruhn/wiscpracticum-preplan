@@ -2,14 +2,17 @@
 ======== Global or Group ========
 */
 body,
-.editBtn {
+.editBtn,
+#textEdit,
+button {
   font-family: "Montserrat", sans-serif;
 }
 
 .editBtn {
+  display: none;
   margin: 0.1rem;
-  /* border: 1px solid blue; */
-
+  padding-block: 0.2rem;
+  border: 1px solid grey;
   border-radius: 0.22rem;
   filter: drop-shadow(1px 1px 1px grey);
 }
@@ -131,18 +134,13 @@ img {
 
 .info h3,
 .info h4 {
-  /*remove auto line break after h3*/
+  /*remove auto line break after h3/h4*/
   display: inline;
   text-transform: uppercase;
 }
 
-.info span {
-  padding-left: 1rem;
-}
-
-.infoImg span,
-.imageContainer span {
-  padding-left: 0;
+.attrVal {
+  padding-left: 0.5rem;
 }
 
 .imageContainer {
@@ -196,8 +194,8 @@ img {
   text-align: center;
   position: fixed;
   top: 20%;
-  left: 10%;
-  width: 80%;
+  left: 20%;
+  width: 60%;
   background-color: white;
   color: black;
   border: 4px solid darkgray;
@@ -219,20 +217,23 @@ img {
   width: 100%;
 }
 
-.editBtn {
-  display: none;
-}
-
 #formVariant,
 #imgFileDialog {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
+#currentImg {
+  border-top: 1px solid rgb(199, 197, 197);
+  padding-top: 0.4rem;
+}
+
 #imgfile {
   /* forces filename to compress within the available space */
   width: 100%;
   text-align: center;
+  border-top: 1px solid rgb(199, 197, 197);
+  padding-block: 0.2rem;
 }
 
 /* form validation styles */
@@ -264,5 +265,11 @@ input:valid + span::after {
 
   .wrapTopRow {
     border-bottom: none;
+  }
+
+  .edit,
+  .addImages {
+    left: 10%;
+    width: 80%;
   }
 }
