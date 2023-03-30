@@ -58,6 +58,15 @@ export function addImages(
     //if no specialImgId argument is supplied get the image from the associated element in the prePlanMap
     currentImageAppend = $(prePlanMap[imageName]).html();
   }
+  // this currently breaks things
+  // else if (!specialImgId && imageName === "needName") {
+  //   currentImageAppend = `<div id="imgNameDialog">
+  //     <label for="imgfileName">Provide a Name for this Image </label>
+  //     <br />
+  //     <input type="text" id="imgfileName" name="imgfileName" />
+  //     <p>The name will be used to lable the image in the preplan. Names must be <10 characters and provide a good description for what the image is of. </p>
+  //     </div>`;
+  // }
 
   //change text to be add or replace depending on presence of an image
   let editAction = "Replace";
