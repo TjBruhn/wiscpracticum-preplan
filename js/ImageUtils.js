@@ -25,6 +25,8 @@ export function addImage(layer, graphic, imageName) {
   //get the file from the form
   var file = document.getElementById("imgUploadForm")[0].files[0];
 
+  console.log("form: ", file);
+
   //construct new FormData object and apply new file name
   var formData = new FormData();
 

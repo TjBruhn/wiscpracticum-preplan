@@ -96,11 +96,11 @@ export function editAttribute(layer, graphic, attrName) {
   } else if (attrName === "Status") {
     $("#formVariant").html(
       `<select id="textEdit">
-            <option value="Need">Need</option>
-            <option value="SVcomplete">Site visit complete</option>
             <option value="Completed">Preplan Completed</option>
-            <option value="Unnecessary">Unnecessary</option>
             <option value="NeedsRevisit">Needs Revisit</option>
+            <option value="SVcomplete">Site visit complete</option>
+            <option value="Need">Need</option>
+            <option value="Unnecessary">Unnecessary</option>
           </select>`
     );
   } else {

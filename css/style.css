@@ -87,8 +87,8 @@ img {
 }
 
 #restore {
-  background-color: red;
-  border: 2px solid red;
+  background-color: #dc3220;
+  border: 2px solid #dc3220;
 }
 
 #restore:hover {
@@ -97,8 +97,8 @@ img {
 }
 
 #editMode {
-  background-color: blue;
-  border: 2px solid blue;
+  background-color: #005ab5;
+  border: 2px solid #005ab5;
 }
 
 #editMode:hover {

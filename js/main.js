@@ -15,6 +15,8 @@ require([
   "esri/layers/GraphicsLayer",
   "esri/widgets/Home",
   "esri/widgets/Compass",
+  "esri/widgets/Locate",
+  "esri/widgets/Legend",
   "esri/widgets/BasemapToggle",
   "esri/widgets/ScaleBar",
   "esri/widgets/Print",
@@ -31,6 +33,8 @@ require([
   GraphicsLayer,
   Home,
   Compass,
+  Locate,
+  Legend,
   BasemapToggle,
   ScaleBar,
   Print,
@@ -78,8 +82,6 @@ require([
   // Add the toggle button to the bottom left corner of the view
   view.ui.add(toggle, "bottom-left");
 
-  //console.log(toggle.getThumbnailUrl("osm-standard-relief"));
-
   //Add Home Button
   const homeBtn = new Home({
     view: view,
@@ -91,8 +93,30 @@ require([
   const compass = new Compass({
     view: view,
   });
-  // adds the compass to the top left corner of the view
+  // adds the compass to the corner of the view
   view.ui.add(compass, "top-right");
+
+  // add locate button
+  const locateBtn = new Locate({
+    view: view,
+  });
+  // Add the locate widget to the corner of the view
+  view.ui.add(locateBtn, "top-right");
+
+  //add legend
+  let legend = new Legend({
+    view: view,
+  });
+  //configure expansion menu for print widget
+  let legendExpand = new Expand({
+    view: view,
+    expanded: false,
+    content: legend,
+    mode: "floating",
+    group: "top-right",
+  });
+  //add legend to corner of view
+  view.ui.add(legendExpand, "top-right");
 
   //Add scalebar
   const scaleBar = new ScaleBar({
@@ -126,9 +150,7 @@ require([
   });
 
   //adds the print button to the topleft corner of the view
-  view.ui.add(printExpand, {
-    position: "top-left",
-  });
+  view.ui.add(printExpand, "top-left");
 
   //END: ==== ADD MAP WIDGETS =============
 
@@ -156,11 +178,11 @@ require([
       title: "PrePlan Status",
     },
     field: "Status",
-    defaultSymbol: {
-      type: "simple-fill",
-      color: "rgba(0, 127, 191, 0.5)",
-      outline: null,
-    },
+    // defaultSymbol: {
+    //   type: "simple-fill",
+    //   color: "rgba(0, 127, 191, 0.5)",
+    //   outline: null,
+    // },
     uniqueValueInfos: [
       {
         value: "Completed",
@@ -168,6 +190,24 @@ require([
         symbol: {
           type: "simple-fill",
           color: "rgba(0, 76, 115, 0.5)",
+          outline: null,
+        },
+      },
+      {
+        value: "NeedsRevisit",
+        label: "Needs Revisit",
+        symbol: {
+          type: "simple-fill",
+          color: "rgba(0, 127, 191, 0.5)",
+          outline: null,
+        },
+      },
+      {
+        value: "SVcomplete",
+        label: "Site Visit Complete",
+        symbol: {
+          type: "simple-fill",
+          color: "rgba(170, 68, 153, 0.65)",
           outline: null,
         },
       },
@@ -180,12 +220,21 @@ require([
           outline: null,
         },
       },
+      {
+        value: "Unnecessary",
+        label: "Unnecessary",
+        symbol: {
+          type: "simple-fill",
+          color: "rgba(115, 64, 0, 0.2)",
+          outline: null,
+        },
+      },
     ],
   };
 
   //add buildings/preplan features
   const buildings = new FeatureLayer({
-    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/PHG_PrePlans/FeatureServer/0",
+    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/PHG_PrePlans/FeatureServer",
     outFields: ["*"],
     labelingInfo: buildingsLabelClass,
     labelsVisible: true,
@@ -252,7 +301,7 @@ require([
 
           let graphic = graphicHit.graphic;
 
-          console.log("clicked item: ", graphic);
+          console.log("clicked item: ", graphic.attributes);
 
           //==== get the attachments ====
           getAttachments(buildings, graphic);

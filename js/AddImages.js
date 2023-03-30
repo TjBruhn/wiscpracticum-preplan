@@ -50,18 +50,18 @@ export function addImages(
       break;
   }
 
-  let imagedialogAppend;
+  let currentImageAppend;
   if (specialImgId) {
     //if specialImgId argument is supplied get the image using the specialImageId
-    imagedialogAppend = $(specialImgId).html();
-  } else if (!specialImgId) {
+    currentImageAppend = $(specialImgId).html();
+  } else if (!specialImgId && imageName !== "needName") {
     //if no specialImgId argument is supplied get the image from the associated element in the prePlanMap
-    imagedialogAppend = $(prePlanMap[imageName]).html();
+    currentImageAppend = $(prePlanMap[imageName]).html();
   }
 
   //change text to be add or replace depending on presence of an image
   let editAction = "Replace";
-  switch (imagedialogAppend) {
+  switch (currentImageAppend) {
     case "No image available":
       editAction = "Add";
       $("#imageDelete").css("display", "none");
@@ -73,7 +73,7 @@ export function addImages(
     default:
       $("#imageDelete").css("display", "inline-block");
       //add current image to popup dialog
-      $("#currentImg").html(imagedialogAppend);
+      $("#currentImg").html(currentImageAppend);
       break;
   }
 

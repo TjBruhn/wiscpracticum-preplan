@@ -40,7 +40,7 @@ export function getAttachments(buildings, graphic) {
     $("#specialImgBtn")
       .off()
       .on("click", function () {
-        addImages(buildings, graphic, clickedId, prePlanMap);
+        addImages(buildings, graphic, "needName", prePlanMap);
         //TODO: figure out unique naming
       });
 
