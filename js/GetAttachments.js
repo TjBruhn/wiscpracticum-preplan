@@ -41,7 +41,6 @@ export function getAttachments(buildings, graphic) {
       .off()
       .on("click", function () {
         addImages(buildings, graphic, "needName", prePlanMap);
-        //TODO: figure out unique naming
       });
 
     //get the attachments array

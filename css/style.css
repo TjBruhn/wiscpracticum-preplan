@@ -156,6 +156,7 @@ img {
 .imageContainer p {
   margin: 0;
   background-color: rgb(240, 240, 240);
+  border-radius: 0.22rem;
 }
 
 .notes {
@@ -244,10 +245,6 @@ img {
   width: 100%;
   text-align: center;
   padding-block: 0.2rem;
-}
-
-#imgNameDialog {
-  /* display: none; */
 }
 
 /* form validation styles */

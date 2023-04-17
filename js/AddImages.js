@@ -24,23 +24,29 @@ export function addImages(
     //clear the current image
     $("#currentImg").html("");
 
-    //hide the Name dialog
-    // $("#imgNameDialog").css("display", "none");
-
     //remove the readonly on the image name input
     $("#imgfileName").prop("readonly", false);
+
+    // Ensure the submit button is visible
+    $("#imageSubmit").css("display", "inline-block");
+
+    //ensure the image file dialog is visible
+    $("#imgFileDialog").css("display", "block");
   }
 
-  //TODO: figure out unique naming for special images
-  //  coordinate with line 43 in GetAttachments.js
+  // Add the Image name to the input
   switch (imageName) {
     case "needName":
-      // don't populate the value of the name field in the form
+      // populate the value of the name field with a place holder
       $("#imgfileName").val("add name");
+      // Show the image name dialog
+      $("#imgNameDialog").css("display", "block");
       break;
     default:
       // populate the form with the name value and make read only to prevent undesired change
       $("#imgfileName").val(imageName).prop("readonly", true);
+      // Hide the image name dialog
+      $("#imgNameDialog").css("display", "none");
   }
 
   //create a dictionary to use imageName to  create dynamic form labels
@@ -67,15 +73,11 @@ export function addImages(
 
   let currentImageAppend;
   if (specialImgId) {
-    //if specialImgId argument is supplied get the image using the specialImageId and displays the image name dialog
+    //if specialImgId argument is supplied get the image using the specialImageId
     currentImageAppend = $(specialImgId).html();
-    $("#imgNameDialog").css("display", "block");
   } else if (!specialImgId && imageName !== "needName") {
     //if no specialImgId argument is supplied get the image from the associated element in the prePlanMap
     currentImageAppend = $(prePlanMap[imageName]).html();
-  } else if (!specialImgId && imageName === "needName") {
-    // thise serves the add additional image function and doesn't add an image but displays the image name dialog
-    $("#imgNameDialog").css("display", "block");
   }
 
   //change text to be add or replace depending on presence of an image
@@ -98,6 +100,11 @@ export function addImages(
       $("#currentImg").html(currentImageAppend);
       //append the hr
       $("#currentImg").append("<hr />");
+      //hide submit button for additional images leaves the only option is to delete
+      if (imageName in prePlanMap === false) {
+        $("#imageSubmit").css("display", "none");
+        $("#imgFileDialog").css("display", "none");
+      }
       break;
   }
 
@@ -110,13 +117,37 @@ export function addImages(
     $("#addImgLabel").html(imgLabelText);
   } else if (specialImgId) {
     // if it is a special image, use the image's attachment id in the replacement text
-    imgLabelText = editAction + " Image #" + attachmentId;
+    imgLabelText = "Delete Image: " + imageName;
     $("#addImgLabel").html(imgLabelText);
   } else {
     // text for the general additional image add button
     imgLabelText = "Add Additional Image";
     $("#addImgLabel").html(imgLabelText);
   }
+
+  // disable submit button if there is not a Name or a file selected
+  if (
+    $("#imgfileName").val() === "add name" ||
+    document.getElementById("imgUploadForm")[0].files.length === 0
+  ) {
+    $("#imageSubmit").prop("disabled", true);
+  } else {
+    $("#imageSubmit").prop("disabled", false);
+  }
+
+  function isSubmitReady() {
+    // Checks if there is an image and a name  if yes, enables the submit button
+    if (
+      $("#imgfileName").val() !== "add name" &&
+      document.getElementById("imgUploadForm")[0].files.length !== 0
+    ) {
+      $("#imageSubmit").prop("disabled", false);
+    }
+  }
+
+  // listeners on Image name and image file to check for changes
+  $("#imgfile").change(() => isSubmitReady());
+  $("#imgfileName").change(() => isSubmitReady());
 
   // open add images popup
   $(".addImages").css("display", "block");

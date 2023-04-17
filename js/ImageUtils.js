@@ -28,9 +28,7 @@ export function addImage(layer, graphic) {
   // get the image name from the form
   var imageName = document.getElementById("imgUploadForm")[1].value;
 
-  console.log("form: ", file);
-
-  console.log("name: ", imageName);
+  // TODO: consider adding cleanup to file name to eliminate spaces and ensure it has a file extension. It works without this so it may be unnecessary. This change would also require logic in get attachments to convert back to a label appropriate format
 
   //construct new FormData object and apply new file name
   var formData = new FormData();

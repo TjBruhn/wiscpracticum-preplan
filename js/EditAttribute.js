@@ -13,8 +13,6 @@ export function editAttribute(layer, graphic, attrName) {
   let attrValue = graphic.attributes[attrName];
   let valueID = "#textEdit";
 
-  console.log("edit attribute called: " + attrName + " " + attrValue);
-
   //change the text in the label field to reflect the item being edited
   let editBoxLabel = "Edit: " + attrName;
   $(".edit label").html(editBoxLabel);
