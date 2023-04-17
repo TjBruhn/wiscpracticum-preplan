@@ -23,10 +23,25 @@ export function addImages(
 
     //clear the current image
     $("#currentImg").html("");
+
+    //hide the Name dialog
+    // $("#imgNameDialog").css("display", "none");
+
+    //remove the readonly on the image name input
+    $("#imgfileName").prop("readonly", false);
   }
 
   //TODO: figure out unique naming for special images
   //  coordinate with line 43 in GetAttachments.js
+  switch (imageName) {
+    case "needName":
+      // don't populate the value of the name field in the form
+      $("#imgfileName").val("add name");
+      break;
+    default:
+      // populate the form with the name value and make read only to prevent undesired change
+      $("#imgfileName").val(imageName).prop("readonly", true);
+  }
 
   //create a dictionary to use imageName to  create dynamic form labels
   let labelMap = {
@@ -52,37 +67,37 @@ export function addImages(
 
   let currentImageAppend;
   if (specialImgId) {
-    //if specialImgId argument is supplied get the image using the specialImageId
+    //if specialImgId argument is supplied get the image using the specialImageId and displays the image name dialog
     currentImageAppend = $(specialImgId).html();
+    $("#imgNameDialog").css("display", "block");
   } else if (!specialImgId && imageName !== "needName") {
     //if no specialImgId argument is supplied get the image from the associated element in the prePlanMap
     currentImageAppend = $(prePlanMap[imageName]).html();
+  } else if (!specialImgId && imageName === "needName") {
+    // thise serves the add additional image function and doesn't add an image but displays the image name dialog
+    $("#imgNameDialog").css("display", "block");
   }
-  // this currently breaks things
-  // else if (!specialImgId && imageName === "needName") {
-  //   currentImageAppend = `<div id="imgNameDialog">
-  //     <label for="imgfileName">Provide a Name for this Image </label>
-  //     <br />
-  //     <input type="text" id="imgfileName" name="imgfileName" />
-  //     <p>The name will be used to lable the image in the preplan. Names must be <10 characters and provide a good description for what the image is of. </p>
-  //     </div>`;
-  // }
 
   //change text to be add or replace depending on presence of an image
   let editAction = "Replace";
   switch (currentImageAppend) {
     case "No image available":
+      //there is no image so we only add and remove the delete
       editAction = "Add";
       $("#imageDelete").css("display", "none");
       break;
+
     case undefined: //catches the additional images category
       editAction = "Add";
       $("#imageDelete").css("display", "none");
       break;
+
     default:
       $("#imageDelete").css("display", "inline-block");
       //add current image to popup dialog
       $("#currentImg").html(currentImageAppend);
+      //append the hr
+      $("#currentImg").append("<hr />");
       break;
   }
 
@@ -129,13 +144,13 @@ export function addImages(
           ) {
             deleteImage(layer, graphic, attachmentId, false).then(
               // if success add the image to the server
-              addImage(layer, graphic, imageName)
+              addImage(layer, graphic)
             );
           }
 
           break;
         default: //add the image to the server
-          addImage(layer, graphic, imageName);
+          addImage(layer, graphic);
       }
 
       closePopup();

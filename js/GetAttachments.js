@@ -57,6 +57,7 @@ export function getAttachments(buildings, graphic) {
         /*
           this html string creates thumbnails by wrapping the img in <a> and pass the url to both.
           write the attachmentID to the <data> element's value to be used to delete the image
+          TODO: consider change from data element to data attribute
         */
         let aString =
           '<a target="blank" href="' +
@@ -99,7 +100,9 @@ export function getAttachments(buildings, graphic) {
 
           // compose an HTML string to append image in acontainer with an edit button
           let specialImgaString =
-            `<div class="imageContainer"><span id="` +
+            `<div class="imageContainer"><p>` +
+            itemName +
+            `</p><span id="` +
             specialImgIdtxt +
             `">` +
             aString +
@@ -123,7 +126,7 @@ export function getAttachments(buildings, graphic) {
               addImages(
                 buildings,
                 graphic,
-                clickedId,
+                itemName,
                 prePlanMap,
                 attachmentId,
                 specialImgId

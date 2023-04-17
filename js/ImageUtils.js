@@ -21,11 +21,16 @@ export async function deleteImage(
     });
 }
 
-export function addImage(layer, graphic, imageName) {
+export function addImage(layer, graphic) {
   //get the file from the form
   var file = document.getElementById("imgUploadForm")[0].files[0];
 
+  // get the image name from the form
+  var imageName = document.getElementById("imgUploadForm")[1].value;
+
   console.log("form: ", file);
+
+  console.log("name: ", imageName);
 
   //construct new FormData object and apply new file name
   var formData = new FormData();

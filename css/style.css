@@ -153,6 +153,10 @@ img {
   padding: 0.1rem;
   text-align: center;
 }
+.imageContainer p {
+  margin: 0;
+  background-color: rgb(240, 240, 240);
+}
 
 .notes {
   flex: 6;
@@ -193,7 +197,7 @@ img {
   display: none;
   text-align: center;
   position: fixed;
-  top: 20%;
+  top: 5%;
   left: 20%;
   width: 60%;
   background-color: white;
@@ -211,6 +215,14 @@ img {
   padding: 2rem;
 }
 
+.helpText {
+  font-size: smaller;
+}
+
+.addImages hr {
+  border: 1px solid rgb(199, 197, 197);
+}
+
 .edit label,
 .edit textarea {
   display: block; /*changes these to block*/
@@ -224,7 +236,6 @@ img {
 }
 
 #currentImg {
-  border-top: 1px solid rgb(199, 197, 197);
   padding-top: 0.4rem;
 }
 
@@ -232,8 +243,11 @@ img {
   /* forces filename to compress within the available space */
   width: 100%;
   text-align: center;
-  border-top: 1px solid rgb(199, 197, 197);
   padding-block: 0.2rem;
+}
+
+#imgNameDialog {
+  /* display: none; */
 }
 
 /* form validation styles */
