@@ -1,9 +1,7 @@
-// javascript by Trever J. Bruhn 2022
-
 import { getAttachments } from "./GetAttachments.js";
 import { getAttributes } from "./GetAttributes.js";
 
-// map for Preplan for PHG Fire
+// Map for Preplan for PHG Fire
 require([
   "esri/config",
   "esri/Map",
@@ -46,15 +44,14 @@ require([
 
   esriConfig.apiKey = apiKey;
 
-  //define osm basemap and set a thumbnail
+  // Define osm basemap and set a thumbnail
   const osmStandardRelief = Basemap.fromId("osm-standard-relief");
-  //thumbnail required for basemapToggle could change to custom version if interested
+  // Thumbnail required for basemapToggle could change to custom version if interested
   osmStandardRelief.thumbnailUrl =
     "https://www.arcgis.com/sharing/rest/content/items/5b93370c7fc24ca3b8740abd2a55456a/info/thumbnail/thumbnail1607563948959.jpeg";
 
   const map = new Map({
     basemap: osmStandardRelief,
-    //"arcgis-topographic", // Basemap layer service
   });
 
   const view = new MapView({
@@ -72,7 +69,7 @@ require([
   ADD MAP WIDGETS 
   ==================================*/
 
-  //Add basemap toggle
+  // Add basemap toggle
   const toggle = new BasemapToggle({
     viewModel: {
       view: view,
@@ -82,32 +79,32 @@ require([
   // Add the toggle button to the bottom left corner of the view
   view.ui.add(toggle, "bottom-left");
 
-  //Add Home Button
+  // Add Home Button
   const homeBtn = new Home({
     view: view,
   });
   // Add the home button to the top left corner of the view
   view.ui.add(homeBtn, "top-left");
 
-  //add compass
+  // Add compass
   const compass = new Compass({
     view: view,
   });
-  // adds the compass to the corner of the view
+  // Adds the compass to the corner of the view
   view.ui.add(compass, "top-right");
 
-  // add locate button
+  // Add locate button
   const locateBtn = new Locate({
     view: view,
   });
   // Add the locate widget to the corner of the view
   view.ui.add(locateBtn, "top-right");
 
-  //add legend
+  // Add legend
   let legend = new Legend({
     view: view,
   });
-  //configure expansion menu for print widget
+  // Configure expansion menu for print widget
   let legendExpand = new Expand({
     view: view,
     expanded: false,
@@ -115,30 +112,30 @@ require([
     mode: "floating",
     group: "top-right",
   });
-  //add legend to corner of view
+  // Add legend to corner of view
   view.ui.add(legendExpand, "top-right");
 
-  //Add scalebar
+  // Add scalebar
   const scaleBar = new ScaleBar({
     view: view,
   });
-  //adds the scale bar to the bottom right corner of the view
+  // Adds the scale bar to the bottom right corner of the view
   view.ui.add(scaleBar, "bottom-right");
 
-  //Create print widget with the associated actions and add it to the top-right corner of the view.
+  // Create print widget with the associated actions and add it to the top-right corner of the view.
   let templateOptions = new TemplateOptions({
     forceFeatureAttributes: false,
   });
 
-  //add print information
+  // Add print information
   let printMap = new Print({
     view: view,
     templateOptions: templateOptions,
-    // specify your own print service
+    // Specify your own print service
     printServiceUrl:
       "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task",
   });
-  //configure expansion menu for print widget
+  // Configure expansion menu for print widget
   let printExpand = new Expand({
     expandIconClass: "esri-icon-printer",
     expandTooltip: "Expand Print/Export",
@@ -149,7 +146,7 @@ require([
     group: "top-left",
   });
 
-  //adds the print button to the topleft corner of the view
+  // Adds the print button to the topleft corner of the view
   view.ui.add(printExpand, "top-left");
 
   //END: ==== ADD MAP WIDGETS =============
@@ -158,7 +155,7 @@ require([
   Add layers 
   ==================================*/
 
-  //define Building Label class
+  // Define Building Label class
   const buildingsLabelClass = new LabelClass({
     labelExpressionInfo: { expression: "$feature.Name" },
     symbol: {
@@ -167,11 +164,11 @@ require([
       haloSize: 1,
       haloColor: "white",
     },
-    maxScale: 0, // labels viewable all the way to ground
-    minScale: 12000, //labels disapper at smaller scales - further zoomed out
+    maxScale: 0, // Labels viewable all the way to ground
+    minScale: 12000, // Labels disapper at smaller scales - further zoomed out
   });
 
-  //building symbology -- other color complements light blue:(19, 134, 191), orange:(191, 106, 0)
+  // Building symbology -- other color complements light blue:(19, 134, 191), orange:(191, 106, 0)
   const buildingsRenderer = {
     type: "unique-value",
     legendOptions: {
@@ -232,7 +229,7 @@ require([
     ],
   };
 
-  //add buildings/preplan features
+  // Add buildings/preplan features
   const buildings = new FeatureLayer({
     url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/PHG_PrePlans/FeatureServer",
     outFields: ["*"],
@@ -242,7 +239,7 @@ require([
   });
   map.add(buildings);
 
-  //add graphics layer for selected building
+  // Add graphics layer for selected building
   const selectedBuildingGraphic = new GraphicsLayer({});
   map.add(selectedBuildingGraphic);
 
@@ -255,10 +252,10 @@ require([
   // Listen to the click event on the view
   view.on("click", async (event) => {
     view.hitTest(event).then(function (response) {
-      //clear the graphics layer
+      // Clear the graphics layer
       selectedBuildingGraphic.graphics.removeAll();
 
-      //turn edit mode off and hide button this prevents unintended editing of "completed" preplans and forces initiating editing for each building
+      // Turn edit mode off and hide button this prevents unintended editing of "completed" preplans and forces initiating editing for each building
       $(".editHide").show();
       $(".editBtn").css("display", "none");
       $("#editMode")
@@ -266,15 +263,15 @@ require([
         .html("Edit Mode")
         .css("display", "none");
 
-      // only get the graphics returned from Buildings Layer
+      // Only get the graphics returned from Buildings Layer
       const graphicHits = response.results?.filter(
         (hitResult) =>
           hitResult.type === "graphic" && hitResult.graphic.layer === buildings
       );
       if (graphicHits?.length > 0) {
-        // do something with the buildings Layer features returned from hittest
+        // Do something with the buildings Layer features returned from hittest
         graphicHits.forEach((graphicHit) => {
-          //add a graphic of the selected
+          // Add a graphic of the selected
           let selectedBuilding = new Graphic({
             geometry: graphicHit.graphic.geometry,
             symbol: {
@@ -288,10 +285,10 @@ require([
           });
           selectedBuildingGraphic.graphics.add(selectedBuilding);
 
-          //zoom to and center on selected
+          // Zoom to and center on selected
           let goToTarget = {
             target: graphicHit.graphic,
-            scale: 2000, //1:2000
+            scale: 2000, // Means 1:2000
           };
           let opts = {
             animate: true,
@@ -303,14 +300,14 @@ require([
 
           console.log("clicked item: ", graphic.attributes);
 
-          //==== get the attachments ====
+          // Get the attachments
           getAttachments(buildings, graphic);
 
-          //==== Get the attributes ====
+          // Get the attributes
           getAttributes(buildings, graphic);
 
-          //show the editmode button
-          //conditional to not show on "Completed" or "NeedsRevisit" added to protect existing data during user testing
+          // Show the editmode button
+          // Conditional to not show on "Completed" or "NeedsRevisit" added to protect existing data during user testing
           //TODO: remove conditional after user testing
           if (
             graphic.attributes.Status !== "Completed" &&
@@ -325,27 +322,27 @@ require([
 
   //END: Select building and launch preplan ======
 
-  //restore map view to full width
+  // Restore map view to full width
   $("#restore").on("click", () => {
-    //passing empty value reverts to style sheet
+    // Passing empty value reverts to style sheet
     $("#viewDiv").height("");
-    //hide the button
+    // Hide the button
     $("#restore").css("display", "none");
-    //hide all content
+    // Hide all content
     $(".info").css("display", "none");
-    //clear the graphics layer
+    // Clear the graphics layer
     selectedBuildingGraphic.graphics.removeAll();
-    //hide edit editMode buttons
+    // Hide edit editMode buttons
     $(".editBtn").css("display", "none");
     $(".editHide").show();
-    //turn edit mode off and hide button
+    // Turn edit mode off and hide button
     $("#editMode")
       .attr("value", "off")
       .html("Edit Mode")
       .css("display", "none");
   });
 
-  //Toggle on edit mode
+  // Toggle on edit mode
   $("#editMode").on("click", () => {
     if ($("#editMode").attr("value") == "off") {
       $(".editBtn").css("display", "inline");
@@ -356,8 +353,8 @@ require([
       $(".editHide").show();
       $("#editMode").attr("value", "off").html("Edit Mode");
     }
-    //resize the map Div
-    //match the map height to the height of the content
+    // Resize the map Div
+    // Match the map height to the height of the content
     $("#viewDiv").hide();
     let contentHeight = $("#content").innerHeight();
     $("#viewDiv").height(contentHeight);

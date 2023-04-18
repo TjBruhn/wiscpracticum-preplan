@@ -4,28 +4,28 @@ export function getAttributes(buildings, graphic) {
   let attributes = graphic.attributes;
 
   async function writeData() {
-    //Iterates through attributes attributes and writes data to cooresponding Id
+    // Iterates through attributes attributes and writes data to cooresponding Id
     Object.keys(attributes).forEach(function (attrName) {
       let attrValue = attributes[attrName];
 
-      //display UNIX time stamp as date
+      // Display UNIX time stamp as date
       if (attrName === "EditDate") {
         let isoTime = new Date(attrValue).toISOString();
         let localTime = new Date(isoTime).toString();
         attrValue = localTime;
       }
 
-      //check for data, add it if it exists, or note that it doesn't
+      // Check for data, add it if it exists, or note that it doesn't
       if (attrValue) {
         $("#" + attrName).html(attrValue);
       } else {
         $("#" + attrName).html("No Data");
       }
 
-      //concat a string for the button ids
+      // Concat a string for the button ids
       let buttonId = attrName + "Btn";
 
-      // add function to edit buttons
+      // Add function to edit buttons
       $("#" + buttonId)
         .off()
         .on("click", function () {
@@ -33,7 +33,7 @@ export function getAttributes(buildings, graphic) {
         });
     });
 
-    //show the restore button and the info content
+    // Show the restore button and the info content
     $("#viewDiv").hide();
     $("#restore").css("display", "block");
     $(".info").css("display", "block");
@@ -41,8 +41,8 @@ export function getAttributes(buildings, graphic) {
   }
 
   writeData().then(() => {
-    //resize the map Div
-    //match the map height to the height of the content
+    // Resize the map Div
+    // Match the map height to the height of the content
     let contentHeight = $("#content").innerHeight();
     $("#viewDiv").height(contentHeight);
     $("#viewDiv").show();

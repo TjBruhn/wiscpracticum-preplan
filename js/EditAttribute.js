@@ -1,34 +1,50 @@
 import { getAttributes } from "./GetAttributes.js";
 
 export function editAttribute(layer, graphic, attrName) {
-  // close any open popup window
+  // Close any open popup window
   $(".edit").css("display", "none");
 
-  // disable other edit buttons while pop up is open
+  // Disable other edit buttons while pop up is open
   $(".editBtn").prop("disabled", true);
 
-  // reactivate submit button disabled in form validation
+  // Reactivate submit button disabled in form validation
   $("#editSubmit").prop("disabled", false);
 
   let attrValue = graphic.attributes[attrName];
   let valueID = "#textEdit";
 
-  // change the text in the label field to reflect the item being edited
+  // Change the text in the label field to reflect the item being edited
   let editBoxLabel = "Edit: " + attrName;
   $(".edit label").html(editBoxLabel);
 
-  // insert form entry variation based on attrName
+  // Help text object
+  const helpText = {
+    POCName:
+      "The point of contact for the facility who should be contacted in an emergency. Should be a 24/7 contact.",
+    WaterSupply:
+      "Describe the location and access of the nearest water supply. Include estimation of distance. If no supply make note and include strategy for supplying water.",
+    Notes: "Any important notes that don't belong in any other category.",
+    PanelInfo:
+      "Describe the location and access for the electrical panel. Include any details about shuting off the power.",
+    Riser:
+      "Describe the location and access. Include any details about connecting.",
+    FACP: "Describe the location and access. Include any details about using the panel.",
+    SpecialHazard:
+      "Describe the hazard including any relavent details like location, access, and mitigation strategies.",
+  };
 
-  //lists for form variations
+  // Insert form entry variation based on attrName
+
+  // Lists for form variations
   const yesNo = ["Sprinklers", "Detectors", "Electricity", "Water", "Gas"];
 
   function validateSubmit() {
-    //inactivate submit button until Valid entry is supplied
-    //  if no current value disable submit button
+    // Inactivate submit button until Valid entry is supplied
+    //  If no current value disable submit button
     if (!attrValue) {
       $("#editSubmit").prop("disabled", true);
     }
-    //  when a valid value is entered enable submit button
+    //  When a valid value is entered enable submit button
     $("#textEdit")
       .off()
       .on("keyup", function () {
@@ -40,26 +56,31 @@ export function editAttribute(layer, graphic, attrName) {
       });
   }
 
-  //establish lists of attrNames that recieve a specific form type
+  // Establish lists of attrNames that recieve a specific form type
   if (attrName === "POCNumber") {
     $("#formVariant").html(
       `<input type="tel" id="textEdit" name="textEdit"
        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-       required><span class="validity"></span><br/><small>Format: 123-456-7890</small>`
+       required>
+       <span class="validity"></span>
+       <br/>
+       <small>Format: 123-456-7890</small>`
     );
 
     validateSubmit();
   } else if (yesNo.includes(attrName)) {
     $("#formVariant").html(
-      `<input type="radio" name="yes_no" value="Yes" >Yes</input><input type="radio" name="yes_no" value="No">No</input>`
+      `<input type="radio" name="yes_no" value="Yes">Yes</input>
+      <input type="radio" name="yes_no" value="No">No</input>`
     );
     valueID = 'input[name="yes_no"]:checked';
 
-    //set the checked radio to the current value
+    // Set the checked radio to the current value
     $('input[name="yes_no"]').val([attrValue]);
   } else if (attrName === "SqFt") {
     $("#formVariant").html(
-      `<input type="text" inputmode="numeric" pattern="[0-9]*" minlength="3" id="textEdit" required></input><span class="validity"></span>`
+      `<input type="text" inputmode="numeric" pattern="[0-9]*" minlength="3" id="textEdit" required></input>
+      <span class="validity"></span>`
     );
 
     validateSubmit();
@@ -93,16 +114,25 @@ export function editAttribute(layer, graphic, attrName) {
             <option value="Unnecessary">Unnecessary</option>
           </select>`
     );
+  } else if (helpText[attrName]) {
+    // Adds help text to remind users what to include
+    $("#formVariant").html(
+      `<p class="helpText">` +
+        helpText[attrName] +
+        `</p> 
+      <textarea id="textEdit" name="textEdit" rows="10" cols=""></textarea>`
+    );
   } else {
+    // Catches categories without help text
     $("#formVariant").html(
       `<textarea id="textEdit" name="textEdit" rows="10" cols=""></textarea>`
     );
   }
 
-  //populate text edit box with the current value
+  // Populate text edit box with the current value
   $("#textEdit").val(attrValue);
 
-  //display the pop up edit window
+  // Display the pop up edit window
   $(".edit").css("display", "block");
 
   // Set Submit button function
@@ -120,11 +150,11 @@ export function editAttribute(layer, graphic, attrName) {
       //     valueID
       // );
 
-      //update graphic with new value
+      // Update graphic with new value
       graphic.attributes[attrName] = newAttrValue;
       // console.log("with edits: ", graphic.attributes);
 
-      // post the edits
+      // Post the edits
       layer
         .applyEdits({
           updateFeatures: [graphic],
@@ -133,25 +163,25 @@ export function editAttribute(layer, graphic, attrName) {
           console.log("apply edits results: ", editsResult);
         })
         .then(() => {
-          //update form with value supplied
+          // Update form with value supplied
           getAttributes(layer, graphic);
         })
         .catch((error) => {
           console.log("error = ", error);
         });
 
-      //close popup window
+      // Close popup window
       $(".edit").css("display", "none");
 
-      //enable other edit buttons on submit
+      // Enable other edit buttons on submit
       $(".editBtn").prop("disabled", false);
     });
 
   // Set Cancel function
   $("#editCancel").on("click", function () {
-    //close popup window
+    // Close popup window
     $(".edit").css("display", "none");
-    //enable other edit buttons on cancel
+    // Enable other edit buttons on cancel
     $(".editBtn").prop("disabled", false);
   });
 }
