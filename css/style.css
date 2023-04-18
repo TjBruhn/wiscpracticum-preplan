@@ -243,8 +243,6 @@ img {
 }
 
 #imgfile {
-  /* Forces filename to compress within the available space */
-  width: 100%;
   text-align: center;
   padding-block: 0.2rem;
 }
@@ -284,5 +282,11 @@ input:valid + span::after {
   .addImages {
     left: 10%;
     width: 80%;
+  }
+
+  #imgfile {
+    /* Forces filename to compress within the available space while allowing center to work on Chrome on larger screens */
+    width: 100%;
+    text-align: start;
   }
 }
