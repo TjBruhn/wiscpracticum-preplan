@@ -285,10 +285,31 @@ require([
           });
           selectedBuildingGraphic.graphics.add(selectedBuilding);
 
+          // Dynamically set gototarget scale based on feature size
+          function scale() {
+            let height =
+              graphicHit.graphic.geometry.extent.ymax -
+              graphicHit.graphic.geometry.extent.ymin;
+
+            let width = graphicHit.graphic.geometry.extent.width;
+
+            // Choose larger dimension
+            let largerDimension = height > width ? height : width;
+
+            // Compute scale that is best for feature with a minimum of 600
+            let computedScale = Math.round(largerDimension * 14);
+            console.log("computed scale: ", computedScale);
+            if (computedScale > 600) {
+              return computedScale;
+            } else {
+              return 600;
+            }
+          }
+
           // Zoom to and center on selected
           let goToTarget = {
             target: graphicHit.graphic,
-            scale: 2000, // Means 1:2000
+            scale: scale(), // 2000 means 1:2000
           };
           let opts = {
             animate: true,
