@@ -296,9 +296,10 @@ require([
             // Choose larger dimension
             let largerDimension = height > width ? height : width;
 
-            // Compute scale that is best for feature with a minimum of 600
+            // Compute scale - multiplier based on trial and error
             let computedScale = Math.round(largerDimension * 14);
-            console.log("computed scale: ", computedScale);
+
+            //select between computed or minimum of 600
             if (computedScale > 600) {
               return computedScale;
             } else {
