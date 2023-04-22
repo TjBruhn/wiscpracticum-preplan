@@ -11,10 +11,11 @@ export async function deleteImage(
     .deleteAttachments(graphic, [attachmentId])
     .then((result) => {
       console.log("attachment deleted: ", result);
-      // Update preplan with image removed
+      // Update preplan with image removed.
       if (reloadImages) {
         getAttachments(layer, graphic);
       }
+      // If the image is being replaced this prevents reloading images at this step. Images will be reloaded after the new image is added.
     })
     .catch(function (err) {
       console.log("attachment delete failed: ", err);

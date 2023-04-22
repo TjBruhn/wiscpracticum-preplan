@@ -33,13 +33,16 @@ export function getAttributes(buildings, graphic) {
         });
     });
 
-    // Show the restore button and the info content
+    // Hiding this allows the content container to size to its contents and not be affected by the size of this element.
     $("#viewDiv").hide();
+
+    // Show the restore button and the info content
     $("#restore").css("display", "block");
     $(".info").css("display", "block");
     $(".infoImg").css("display", "flex");
   }
 
+  // Wait for the data to be populated and then reset the size of the map div and show it. Waiting ensures the map div fills the available space.
   writeData().then(() => {
     // Resize the map Div
     // Match the map height to the height of the content

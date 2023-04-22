@@ -1,4 +1,4 @@
-import { addImages } from "./AddImages.js";
+import { editImages } from "./EditImages.js";
 
 export function getAttachments(buildings, graphic) {
   let clickedId = graphic.attributes.OBJECTID;
@@ -30,7 +30,7 @@ export function getAttachments(buildings, graphic) {
       $(buttonId)
         .off()
         .on("click", function () {
-          addImages(buildings, graphic, item, prePlanMap);
+          editImages(buildings, graphic, item, prePlanMap);
         });
     });
 
@@ -40,7 +40,7 @@ export function getAttachments(buildings, graphic) {
     $("#specialImgBtn")
       .off()
       .on("click", function () {
-        addImages(buildings, graphic, "needName", prePlanMap);
+        editImages(buildings, graphic, "needName", prePlanMap);
       });
 
     // Get the attachments array
@@ -122,7 +122,7 @@ export function getAttachments(buildings, graphic) {
           $(specialImgBtnId)
             .off()
             .on("click", function () {
-              addImages(
+              editImages(
                 buildings,
                 graphic,
                 itemName,

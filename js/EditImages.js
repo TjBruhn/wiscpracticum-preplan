@@ -1,6 +1,6 @@
 import { deleteImage, addImage } from "./ImageUtils.js";
 
-export function addImages(
+export function editImages(
   layer,
   graphic,
   imageName,
@@ -11,7 +11,7 @@ export function addImages(
   // Disable other edit buttons while pop up is open
   $(".editBtn").prop("disabled", true);
 
-  function closePopup() {
+  function closeImgPopup() {
     // Close popup window
     $(".addImages").css("display", "none");
 
@@ -158,7 +158,7 @@ export function addImages(
     .on("click", function () {
       if (confirm("Are you sure you want to delete this?") === true) {
         deleteImage(layer, graphic, attachmentId, true);
-        closePopup();
+        closeImgPopup();
       }
     });
 
@@ -173,6 +173,7 @@ export function addImages(
             confirm("Replacing deletes the current image. Are you sure?") ===
             true
           ) {
+            // Passing false here prevents reloading images at this step. Images will be reloaded after the new image is added.
             deleteImage(layer, graphic, attachmentId, false).then(
               // If success add the image to the server
               addImage(layer, graphic)
@@ -184,9 +185,9 @@ export function addImages(
           addImage(layer, graphic);
       }
 
-      closePopup();
+      closeImgPopup();
     });
 
   // Cancel button closes popup
-  $("#imageCancel").on("click", () => closePopup());
+  $("#imageCancel").on("click", () => closeImgPopup());
 }

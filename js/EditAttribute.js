@@ -1,11 +1,14 @@
 import { getAttributes } from "./GetAttributes.js";
 
 export function editAttribute(layer, graphic, attrName) {
-  // Close any open popup window
-  $(".edit").css("display", "none");
+  function closeAttrPopup() {
+    // Close popup window
+    $(".edit").css("display", "none");
+    // Enable other edit buttons on cancel
+    $(".editBtn").prop("disabled", false);
+  }
 
-  // Disable other edit buttons while pop up is open
-  $(".editBtn").prop("disabled", true);
+  closeAttrPopup();
 
   // Reactivate submit button disabled in form validation
   $("#editSubmit").prop("disabled", false);
@@ -171,17 +174,9 @@ export function editAttribute(layer, graphic, attrName) {
         });
 
       // Close popup window
-      $(".edit").css("display", "none");
-
-      // Enable other edit buttons on submit
-      $(".editBtn").prop("disabled", false);
+      closeAttrPopup();
     });
 
   // Set Cancel function
-  $("#editCancel").on("click", function () {
-    // Close popup window
-    $(".edit").css("display", "none");
-    // Enable other edit buttons on cancel
-    $(".editBtn").prop("disabled", false);
-  });
+  $("#editCancel").on("click", () => closeAttrPopup());
 }
